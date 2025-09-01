@@ -1,0 +1,1493 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 2- Data Cleaning and Preprocessing &#8212; Data Science Core Concepts</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter 2- Data Cleaning and Preprocessing';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 3- Advanced Preprocessing Techniques" href="Chapter%203-%20Advanced%20Preprocessing%20Techniques.html" />
+    <link rel="prev" title="Chapter 1- Descriptive Statistics" href="Chapter%201-%20Descriptive%20Statistics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Data Science Core Concepts - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Data Science Core Concepts - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your journey in the world of Data Science
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Chapter%201-%20Descriptive%20Statistics.html">Chapter 1- Descriptive Statistics</a></li>
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Chapter 2- Data Cleaning and Preprocessing</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%203-%20Advanced%20Preprocessing%20Techniques.html">Chapter 3- Advanced Preprocessing Techniques</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%204-%20Code%20Optimization.html">Chapter 4- Code Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chapter%205-%20Hypothesis%20Testing%20in%20Python.html">Chapter 5- Hypothesis Testing in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chapter%206-%20Supervised%20ML.html">Chapter 6- Supervised ML</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%207-%20Unsupervised%20ML.html">Chapter 7- Unsupervised ML</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%208-%20Data%20Visualization.html">Chapter 8- Data Visualization</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Guluna/TechInterviewPrep" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Guluna/TechInterviewPrep/issues/new?title=Issue%20on%20page%20%2FChapter 2- Data Cleaning and Preprocessing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Chapter 2- Data Cleaning and Preprocessing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 2- Data Cleaning and Preprocessing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chapter 2- Data Cleaning and Preprocessing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-art-of-data-cleaning">The Art of Data Cleaning</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-values-identification-and-handling">Missing Values Identification and Handling</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identification-and-counts">Identification and Counts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-fillna-dropna">Handling (fillna(), dropna())</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-redundant-or-correlated-features">Handling Redundant or Correlated Features</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#duplicates-and-outliers-observations">Duplicates and Outliers observations</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-duplicates">Handling Duplicates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-outliers">Handling Outliers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-z-score">Using Z-score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-iqr">Using IQR</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-normalization-scaling-techniques-standard-minmax-robust">Data Normalization/Scaling Techniques (Standard, MinMax, Robust)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-minmax-and-zscore-scaling">Manual MinMax and Zscore Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-standardscalar-minmaxscaler-robustscaler">sklearn StandardScalar(), MinMaxScaler(), RobustScaler()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-right-scaling-method">Choosing the Right Scaling Method</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-data-encoding-techniques">Categorical Data Encoding Techniques</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding-pd-get-dummies">One-Hot Encoding (pd.get_dummies())</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-one-hot-encoding">Why One-Hot Encoding?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-encoding-pd-factorize">Label Encoding (pd.factorize())</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-label-encoding">Manual label encoding</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-data-encoding-pitfalls-and-best-practices">Categorical Data Encoding Pitfalls and Best Practices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-selection">Feature Selection</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-for-better-predictions">Feature Engineering for better predictions</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-binning-techniques">Data Binning Techniques</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importance-of-data-binning">Importance of Data Binning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#random-quote">Random Quote</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="chapter-2-data-cleaning-and-preprocessing">
+<h1>Chapter 2- Data Cleaning and Preprocessing<a class="headerlink" href="#chapter-2-data-cleaning-and-preprocessing" title="Link to this heading">#</a></h1>
+<section id="the-art-of-data-cleaning">
+<h2>The Art of Data Cleaning<a class="headerlink" href="#the-art-of-data-cleaning" title="Link to this heading">#</a></h2>
+<p>Real world data is most often messy so the process of sorting it in a proper format before conducting a deeper analysis is called Data Cleaning. It involves several steps like identifying and handling missing values, duplicates, outliers etc. as given below. Let’s go through each one by one. Happy learning!</p>
+</section>
+</section>
+<section id="missing-values-identification-and-handling">
+<h1>Missing Values Identification and Handling<a class="headerlink" href="#missing-values-identification-and-handling" title="Link to this heading">#</a></h1>
+<p>Missing values often pose as ‘NA’, ‘None’, ‘NaN’, or zeros. Python’s Pandas library simplifies the process of spotting them using the isnull() or isna() function (<i>isna() is just an alias for isnull()</i>). This function returns a DataFrame, replacing missing cells with True and non-missing cells with False.</p>
+<section id="identification-and-counts">
+<h2>Identification and Counts<a class="headerlink" href="#identification-and-counts" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="s1">&#39;B&#39;</span><span class="p">:[</span><span class="mi">5</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="s1">&#39;C&#39;</span><span class="p">:[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="kc">None</span><span class="p">]}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Identifying Missing Values</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       A      B      C
+0  False  False  False
+1  False   True  False
+2   True  False  False
+3  False  False   True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># counting missing values</span>
+<span class="n">missing_values_count</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_values_count</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A    1
+B    1
+C    1
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="handling-fillna-dropna">
+<h2>Handling (fillna(), dropna())<a class="headerlink" href="#handling-fillna-dropna" title="Link to this heading">#</a></h2>
+<p>After identification, missing values need to be dealt with. Python provides several strategies:</p>
+<ul class="simple">
+<li><p>fillna(): Fills the missing values.</p></li>
+<li><p>dropna(): Removes the missing values.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fill missing values in whole df with 0</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     A    B     C
+0  2.0  5.0  12.0
+1  4.0  0.0  13.0
+2  0.0  7.0  14.0
+3  8.0  9.0   0.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Handling Missing Values in One Column only</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     A    B     C
+0  2.0  5.0  12.0
+1  4.0  NaN  13.0
+2  0.0  7.0  14.0
+3  8.0  9.0   NaN
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Alice&#39;</span><span class="p">,</span> <span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="s1">&#39;Charlie&#39;</span><span class="p">,</span> <span class="s1">&#39;David&#39;</span><span class="p">,</span> <span class="s1">&#39;Eve&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">45</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Filling missing values with mean. # Luckily, df[&#39;age&#39;].mean() doesn&#39;t consider missing values – hence, it works correctly without any workarounds.</span>
+<span class="n">mean_age</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># 35</span>
+<span class="n">df_new</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">mean_age</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_new</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    25.0
+1    35.0
+2    35.0
+3    35.0
+4    45.0
+Name: age, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Impute missing values using backward fill</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;bfill&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      name   age
+0    Alice  25.0
+1      Bob  35.0
+2  Charlie  35.0
+3    David  45.0
+4      Eve  45.0
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/ll/1x3pcpw96cn3pc3l3hqztlvr0000gn/T/ipykernel_152/3626672431.py:2: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing &#39;df[col].method(value, inplace=True)&#39;, try using &#39;df.method({col: value}, inplace=True)&#39; or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[&#39;age&#39;].fillna(method=&#39;bfill&#39;, inplace=True)
+/var/folders/ll/1x3pcpw96cn3pc3l3hqztlvr0000gn/T/ipykernel_152/3626672431.py:2: FutureWarning: Series.fillna with &#39;method&#39; is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+  df[&#39;age&#39;].fillna(method=&#39;bfill&#39;, inplace=True)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove rows with missing values</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      name   age
+0    Alice  25.0
+1      Bob  35.0
+2  Charlie  35.0
+3    David  45.0
+4      Eve  45.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="handling-redundant-or-correlated-features">
+<h1>Handling Redundant or Correlated Features<a class="headerlink" href="#handling-redundant-or-correlated-features" title="Link to this heading">#</a></h1>
+<p>Machine learning models are grounded in mathematics, and we need to ensure that the input data doesn’t contain multicollinearity, meaning predictors are not dependent on each other thus violating the assumption of independence among predictors and impacting the predictive model’s performance. If two features are highly correlated, they carry similar information.</p>
+<p>To quantify this relationship, we use the correlation coefficient, a value between -1 and 1. If the correlation coefficient is close to 1, it indicates a strong positive correlation. Conversely, a coefficient near -1 indicates a strong negative correlation. A coefficient close to zero suggests no correlation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="c1"># Load the dataset</span>
+<span class="n">titanic_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;titanic&#39;</span><span class="p">)</span>
+
+<span class="c1"># Calculate and print the correlation matrix</span>
+<span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">titanic_df</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">corr_matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            survived    pclass       age     sibsp     parch      fare  \
+survived    1.000000 -0.338481 -0.077221 -0.035322  0.081629  0.257307   
+pclass     -0.338481  1.000000 -0.369226  0.083081  0.018443 -0.549500   
+age        -0.077221 -0.369226  1.000000 -0.308247 -0.189119  0.096067   
+sibsp      -0.035322  0.083081 -0.308247  1.000000  0.414838  0.159651   
+parch       0.081629  0.018443 -0.189119  0.414838  1.000000  0.216225   
+fare        0.257307 -0.549500  0.096067  0.159651  0.216225  1.000000   
+adult_male -0.557080  0.094035  0.280328 -0.253586 -0.349943 -0.182024   
+alone      -0.203367  0.135207  0.198270 -0.584471 -0.583398 -0.271832   
+
+            adult_male     alone  
+survived     -0.557080 -0.203367  
+pclass        0.094035  0.135207  
+age           0.280328  0.198270  
+sibsp        -0.253586 -0.584471  
+parch        -0.349943 -0.583398  
+fare         -0.182024 -0.271832  
+adult_male    1.000000  0.404744  
+alone         0.404744  1.000000  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a heatmap</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">)</span>
+<span class="c1"># Show the plot</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/58a224e1a6f5a9ec06e6b07c3a2d014bcfb644a362828e2cbf773907fcf244f3.png" src="_images/58a224e1a6f5a9ec06e6b07c3a2d014bcfb644a362828e2cbf773907fcf244f3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If &#39;fare&#39; and &#39;pclass&#39; are highly correlated</span>
+<span class="n">clean_df</span> <span class="o">=</span> <span class="n">titanic_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;fare&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="duplicates-and-outliers-observations">
+<h1>Duplicates and Outliers observations<a class="headerlink" href="#duplicates-and-outliers-observations" title="Link to this heading">#</a></h1>
+<p>Clean dataset is a prerequisite for accurate data analysis. Two issues that are frequently encountered while cleaning data are duplicates and outliers.</p>
+<section id="handling-duplicates">
+<h2>Handling Duplicates<a class="headerlink" href="#handling-duplicates" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Create DataFrame</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;Anna&#39;</span><span class="p">,</span> <span class="s1">&#39;Peter&#39;</span><span class="p">,</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;Anna&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;Age&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
+        <span class="s1">&#39;Grade&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># identify duplicates</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">())</span>
+
+<span class="c1"># delete duplicates</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    False
+1    False
+2    False
+3     True
+4     True
+dtype: bool
+    Name  Age  Grade
+0   John   16      9
+1   Anna   15     10
+2  Peter   13      7
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="handling-outliers">
+<h2>Handling Outliers<a class="headerlink" href="#handling-outliers" title="Link to this heading">#</a></h2>
+<p>Outliers are anomalous or unusual values that significantly deviate from other observations. They can adversely impact the performance of our machine-learning models by introducing bias or skewness.</p>
+<p>Outliers can be detected visually using tools like box plots, scatter plots, or statistical methods such as Z-score or IQR. Given a set of values, the Z-score of a value is the distance between that value and the dataset’s mean, expressed in terms of the standard deviation.</p>
+<section id="using-z-score">
+<h3>Using Z-score<a class="headerlink" href="#using-z-score" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="c1"># Load the dataset</span>
+<span class="n">titanic_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;titanic&#39;</span><span class="p">)</span>
+
+<span class="c1"># Calculate Z-scores</span>
+<span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;age_zscore&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">titanic_df</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">titanic_df</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">titanic_df</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
+
+<span class="c1"># Get rows of outliers according to the Z-score method (using a threshold of 3)</span>
+<span class="n">outliers_zscore</span> <span class="o">=</span> <span class="n">titanic_df</span><span class="p">[(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;age_zscore&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">outliers_zscore</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     survived  pclass   sex   age  sibsp  parch    fare embarked  class  who  \
+630         1       1  male  80.0      0      0  30.000        S  First  man   
+851         0       3  male  74.0      0      0   7.775        S  Third  man   
+
+     adult_male deck  embark_town alive  alone  age_zscore  
+630        True    A  Southampton   yes   True    3.462699  
+851        True  NaN  Southampton    no   True    3.049660  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-iqr">
+<h3>Using IQR<a class="headerlink" href="#using-iqr" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Create dataset</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;students&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Alice&#39;</span><span class="p">,</span> <span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;Ann&#39;</span><span class="p">,</span> <span class="s1">&#39;Rob&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;scores&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">47</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># identifying duplicates using IQR</span>
+<span class="n">Q1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>  <span class="c1"># 47.0</span>
+<span class="n">Q3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>  <span class="c1"># 56.0</span>
+<span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>  <span class="c1"># 9.0</span>
+
+<span class="n">lower_bound</span> <span class="o">=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+<span class="n">upper_bound</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+
+<span class="n">outliers</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  students  scores
+1      Bob      11
+3      Ann      98
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are two common strategies for dealing with outliers: remove them or replace them with a median value (using np.where).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="c1"># outlier removal</span>
+<span class="n">df_without_outliers</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">upper_bound</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_without_outliers</span><span class="p">)</span>
+
+<span class="c1"># outlier replacement</span>
+<span class="n">median</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">lower_bound</span><span class="p">),</span> <span class="n">median</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  students  scores
+0    Alice      56
+1      Bob      11
+2     John      50
+3      Ann      98
+4      Rob      47
+  students  scores
+0    Alice      56
+2     John      50
+4      Rob      47
+  students  scores
+0    Alice    56.0
+1      Bob    50.0
+2     John    50.0
+3      Ann    50.0
+4      Rob    47.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="data-normalization-scaling-techniques-standard-minmax-robust">
+<h2>Data Normalization/Scaling Techniques (Standard, MinMax, Robust)<a class="headerlink" href="#data-normalization-scaling-techniques-standard-minmax-robust" title="Link to this heading">#</a></h2>
+<p>If data sets are in various scales or units, certain data elements may unfairly dominate the analysis. Data normalization is a process that brings your data into a common format, allowing for fair and unbiased comparisons.</p>
+<p>Let’s briefly discuss three popular techniques to standardize numerical data.</p>
+<ul class="simple">
+<li><p>Standard Scaler: It assumes data is normally distributed and scales it to have zero mean and unit variance. It’s best used when the data is normally distributed. In other words, when the values of a particular feature follow a bell curve, a Standard Scaler is a good option to standardize the feature. Its formula is:</p></li>
+</ul>
+<p>$$ z = \frac{x - \mu}{\sigma} $$</p>
+<p>In this expression, μ is the mean value, and σ is the standard deviation.</p>
+<ul class="simple">
+<li><p>Min-Max Scaler: Also known as normalization, this technique scales data to range between 0 and 1 (or -1 to 1 if there are negative values). It’s commonly used for algorithms that don’t assume any distribution of the data. This means if your data doesn’t follow a specific shape or form, you might consider using Min-Max Scaler. The mathematical expression is:</p></li>
+</ul>
+<p>$$ x_{\text{new}} = \frac{x - x_{\text{min}}}{x_{\text{max}} - x_{\text{min}}} $$</p>
+<p>This is a linear transformation which changes the scale but not the shape of the distribution.</p>
+<ul class="simple">
+<li><p>Robust Scaler: As its name suggests, this scaler is robust to outliers. It uses the Interquartile Range (IQR) to scale data, and it’s suitable when the dataset contains outliers. Outliers are data points that significantly deviate from other observations. They can be problematic because they can affect the results of a data analysis.</p></li>
+</ul>
+<p>There’s no “one size fits all” scaler so choose scaling technique according to your data needs.</p>
+<section id="manual-minmax-and-zscore-scaling">
+<h3>Manual MinMax and Zscore Scaling<a class="headerlink" href="#manual-minmax-and-zscore-scaling" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Space Explorer&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Spock&#39;</span><span class="p">,</span> <span class="s1">&#39;Kirk&#39;</span><span class="p">,</span> <span class="s1">&#39;McCoy&#39;</span><span class="p">,</span> <span class="s1">&#39;Scotty&#39;</span><span class="p">],</span>
+    <span class="s2">&quot;Height&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">183</span><span class="p">,</span> <span class="mi">178</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">178</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Height_minmax&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Height_minmax&#39;</span><span class="p">])</span>
+<span class="c1"># After normalization, df[&#39;Height&#39;] is [1, 0.61, 0, 0.61]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Height_zscore&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Height_zscore&#39;</span><span class="p">])</span>
+<span class="c1"># After normalization, df[&#39;Height&#39;] is [1.07, 0.14, -1.35, 0.14]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    1.000000
+1    0.615385
+2    0.000000
+3    0.615385
+Name: Height_minmax, dtype: float64
+0    1.069286
+1    0.139472
+2   -1.348230
+3    0.139472
+Name: Height_zscore, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sklearn-standardscalar-minmaxscaler-robustscaler">
+<h3>sklearn StandardScalar(), MinMaxScaler(), RobustScaler()<a class="headerlink" href="#sklearn-standardscalar-minmaxscaler-robustscaler" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># Load the dataset and drop rows with missing values</span>
+<span class="n">titanic_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;titanic&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="c1"># Initialize the StandardScaler</span>
+<span class="n">std_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+
+<span class="c1"># Fit and transform the &#39;age&#39; column</span>
+<span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">std_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Check the transformed &#39;age&#39; column</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1     0.152082
+3    -0.039875
+6     1.175852
+10   -2.023430
+11    1.431795
+Name: age, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMaxScaler</span>
+
+<span class="c1"># Initialize the MinMaxScaler</span>
+<span class="n">min_max_scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+
+<span class="c1"># Fit and transform the &#39;fare&#39; column</span>
+<span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;fare&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_max_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;fare&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Check the transformed &#39;fare&#39; column</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1     0.139136
+3     0.103644
+6     0.101229
+10    0.032596
+11    0.051822
+Name: fare, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">RobustScaler</span>
+
+<span class="c1"># Initialize the RobustScaler</span>
+<span class="n">robust_scaler</span> <span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
+
+<span class="c1"># Fit and transform the &#39;fare&#39; column</span>
+<span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;fare&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">robust_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;fare&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Check the transformed &#39;fare&#39; column</span>
+<span class="c1"># The fare values now reflect how many IQRs are away from the median. This scaling method is resilient to outliers, which effectively become small positive and negative values.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1     0.236871
+3    -0.064677
+6    -0.085199
+10   -0.668325
+11   -0.504975
+Name: fare, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="choosing-the-right-scaling-method">
+<h3>Choosing the Right Scaling Method<a class="headerlink" href="#choosing-the-right-scaling-method" title="Link to this heading">#</a></h3>
+<p>Choosing the right normalization technique can be pivotal in obtaining accurate data analysis results. The right method primarily depends on the nature of your data and the specific requirements of your analyses.</p>
+<p>Use Min-Max Normalization when:</p>
+<ul class="simple">
+<li><p>Your data is bounded and falls within a specific range.</p></li>
+<li><p>The distribution is not normal, or the standard deviation is very small.</p></li>
+<li><p>You’re working with algorithms that require data to be on the same scale, like Neural Networks, or k-Nearest Neighbors.</p></li>
+</ul>
+<p>Example: Let’s take an audio signal that has a minimum and maximum volume. Based on the concept of audio normalization, we want to rescale the signal to fit into a desired range, we would use Min-Max scaling here.</p>
+<p>Use Z-Score Normalization when:</p>
+<ul class="simple">
+<li><p>The data is influenced by outliers as Z-Score is less sensitive to them.</p></li>
+<li><p>The data is not uniformly distributed and you want to handle skewness.</p></li>
+<li><p>You’re dealing with techniques that assume data as centered, like Principal Component Analysis.</p></li>
+</ul>
+<p>Example: Suppose we have a dataset of student’s scores which might contain extreme values (like a score of 100 or 0). To reduce this, we can use Z-Score normalization to identify and handle these score outliers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">planets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="s2">&quot;Planet&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Mercury&#39;</span><span class="p">,</span> <span class="s1">&#39;Jupiter&#39;</span><span class="p">,</span> <span class="s1">&#39;Saturn&#39;</span><span class="p">,</span> <span class="s1">&#39;Mars&#39;</span><span class="p">],</span>
+<span class="s2">&quot;Orbit Speed&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">47.87</span><span class="p">,</span> <span class="mf">13.07</span><span class="p">,</span> <span class="mf">9.69</span><span class="p">,</span> <span class="mf">24.07</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Use Min-Max normalization</span>
+<span class="n">sp</span> <span class="o">=</span> <span class="n">planets</span><span class="p">[</span><span class="s1">&#39;Orbit Speed&#39;</span><span class="p">]</span>
+<span class="n">planets</span><span class="p">[</span><span class="s1">&#39;Orbit Speed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">sp</span> <span class="o">-</span> <span class="n">sp</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">sp</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">planets</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Planet  Orbit Speed
+0  Mercury     1.000000
+1  Jupiter     0.088528
+2   Saturn     0.000000
+3     Mars     0.376637
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="categorical-data-encoding-techniques">
+<h2>Categorical Data Encoding Techniques<a class="headerlink" href="#categorical-data-encoding-techniques" title="Link to this heading">#</a></h2>
+<p>Categorical Data consist of groups or traits such as “gender”, “marital status”, or “hometown”. We convert categories into numbers using Label and One-Hot Encoding techniques.</p>
+<section id="one-hot-encoding-pd-get-dummies">
+<h3>One-Hot Encoding (pd.get_dummies())<a class="headerlink" href="#one-hot-encoding-pd-get-dummies" title="Link to this heading">#</a></h3>
+<p>It creates additional columns for each category, placing a 1 for the appropriate category and 0s elsewhere. It’s preferred for nominal data, where order doesn’t matter, such as “Red”, “Green”, “Blue”.</p>
+</section>
+<section id="why-one-hot-encoding">
+<h3>Why One-Hot Encoding?<a class="headerlink" href="#why-one-hot-encoding" title="Link to this heading">#</a></h3>
+<p>As One-Hot encoding converts each category value into a new column and assigns a 1 or 0 (True/False) value to the column, it does not impose any ordinal relationship among categories where there is none. This can often be the case with labels like ‘Red’, ‘Blue’, ‘Green’.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;item_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1302</span><span class="p">,</span> <span class="mi">1440</span><span class="p">,</span> <span class="mi">1220</span><span class="p">,</span> <span class="mi">2038</span><span class="p">,</span> <span class="mi">1102</span><span class="p">],</span>
+    <span class="s1">&#39;colors&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Red&#39;</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="s1">&#39;Red&#39;</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;colors&#39;</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;color&#39;</span><span class="p">)</span>  <span class="c1"># One-hot encode specified column</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   item_id  color_Blue  color_Green  color_Red
+0     1302       False        False       True
+1     1440       False         True      False
+2     1220        True        False      False
+3     2038       False        False       True
+4     1102       False         True      False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="label-encoding-pd-factorize">
+<h3>Label Encoding (pd.factorize())<a class="headerlink" href="#label-encoding-pd-factorize" title="Link to this heading">#</a></h3>
+<p>It maps categories to numbers ranging from 0 through N-1, where N represents the unique category count. It’s beneficial for ordered data like “Small”, “Medium”, and “Large”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="c1"># Load Titanic dataset</span>
+<span class="n">titanic_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;titanic&#39;</span><span class="p">)</span>
+
+<span class="c1"># Label Encoding for &#39;sex&#39;</span>
+<span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;sex_encoded&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">titanic_df</span><span class="p">[[</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;sex_encoded&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      sex  sex_encoded
+0    male            0
+1  female            1
+2  female            1
+3  female            1
+4    male            0
+</pre></div>
+</div>
+</div>
+</div>
+<section id="manual-label-encoding">
+<h4>Manual label encoding<a class="headerlink" href="#manual-label-encoding" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Small&quot;</span><span class="p">,</span> <span class="s2">&quot;Medium&quot;</span><span class="p">,</span> <span class="s2">&quot;Large&quot;</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;item_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1302</span><span class="p">,</span> <span class="mi">1440</span><span class="p">,</span> <span class="mi">1220</span><span class="p">,</span> <span class="mi">2038</span><span class="p">,</span> <span class="mi">1102</span><span class="p">],</span>
+    <span class="s1">&#39;sizes&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Small&#39;</span><span class="p">,</span> <span class="s1">&#39;Medium&#39;</span><span class="p">,</span> <span class="s1">&#39;Large&#39;</span><span class="p">,</span> <span class="s1">&#39;Small&#39;</span><span class="p">,</span> <span class="s1">&#39;Medium&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Label Encoding</span>
+<span class="n">size_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Small&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Medium&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Large&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;sizes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sizes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">size_mapping</span><span class="p">)</span>  <span class="c1"># Apply mapping to the specified column</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   item_id  sizes
+0     1302      0
+1     1440      1
+2     1220      2
+3     2038      0
+4     1102      1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="categorical-data-encoding-pitfalls-and-best-practices">
+<h3>Categorical Data Encoding Pitfalls and Best Practices<a class="headerlink" href="#categorical-data-encoding-pitfalls-and-best-practices" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Label Encoding can create an unintended order, which may mislead our model.</p></li>
+<li><p>One-Hot Encoding can slow down our model when used with many unique categories.</p></li>
+<li><p>Consider merging select categories or using different encoding techniques to combat these issues. For instance, the ‘Species’ feature in an ‘Animal Shelter’ dataset can be restructured to address such problems. Instead of Label Encoding or One-Hot Encoding each unique species like ‘Dog’, ‘Cat’, ‘Rabbit’, and ‘Bird’, we can merge ‘Dog’ and ‘Cat’ into a new category ‘Pet’, and ‘Rabbit’ and ‘Bird’ into ‘Other’. This technique reduces our feature’s unique categories, making it more model-friendly.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="feature-selection">
+<h1>Feature Selection<a class="headerlink" href="#feature-selection" title="Link to this heading">#</a></h1>
+<p>Benefits:</p>
+<ol class="arabic simple">
+<li><p>It simplifies the models, thus making them easier to interpret.</p></li>
+<li><p>It also enhances accuracy if the right subset is chosen by eliminating irrelevant or partially relevant features that could negatively impact model performance.</p></li>
+<li><p>Feature selection tackles a daunting problem known as the curse of dimensionality, thus preventing model overfitting and boosting the model’s speed.</p></li>
+</ol>
+<p>Feature selection techniques can be broadly classified into three categories:</p>
+<ol class="arabic simple">
+<li><p>Filter Methods: These methods are <strong>commonly used as preprocessing steps</strong>. They employ statistical measures to assign a score to each feature, which is then used to filter out features with low scores. Examples include the Chi-square test, the Fisher Score, and the Correlation Coefficient.</p>
+<ul class="simple">
+<li><p>e.g. using correlation analysis to pick predictors that have high correlation with target variable</p></li>
+</ul>
+</li>
+<li><p>Wrapper Methods: Wrapper methods treat selecting a set of features as a search problem, where combinations are prepared of different features and checked against the problem. Examples include Recursive Feature Elimination, Forward Selection, and Backward Selection.</p></li>
+<li><p>Embedded Methods: Embedded methods are a catch-all group of techniques that perform feature selection as part of the model construction process. They are usually more computationally efficient than the wrapper methods, providing an excellent trade-off between Filter and Wrapper methods by weaving their functionalities into creating a machine-learning model. Examples are LASSO and RIDGE regression, which have inbuilt penalization functions to reduce overfitting.</p></li>
+</ol>
+</section>
+<section id="feature-engineering-for-better-predictions">
+<h1>Feature Engineering for better predictions<a class="headerlink" href="#feature-engineering-for-better-predictions" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the data</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">titanic_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;titanic&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create a new feature, &#39;family_size&#39;</span>
+<span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;family_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;sibsp&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;parch&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">titanic_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   survived  pclass     sex   age  sibsp  parch     fare embarked  class  \
+0         0       3    male  22.0      1      0   7.2500        S  Third   
+1         1       1  female  38.0      1      0  71.2833        C  First   
+2         1       3  female  26.0      0      0   7.9250        S  Third   
+3         1       1  female  35.0      1      0  53.1000        S  First   
+4         0       3    male  35.0      0      0   8.0500        S  Third   
+
+     who  adult_male deck  embark_town alive  alone  family_size  
+0    man        True  NaN  Southampton    no  False            2  
+1  woman       False    C    Cherbourg   yes  False            2  
+2  woman       False  NaN  Southampton   yes   True            1  
+3  woman       False    C  Southampton   yes  False            2  
+4    man        True  NaN  Southampton    no   True            1  
+</pre></div>
+</div>
+</div>
+</div>
+<section id="data-binning-techniques">
+<h2>Data Binning Techniques<a class="headerlink" href="#data-binning-techniques" title="Link to this heading">#</a></h2>
+<p>Imagine a shopkeeper sorting different types of fruit into separate baskets. That’s much like what binning is. In data preprocessing, binning converts continuous values into categorical bins or groups, thus simplifying data analysis.</p>
+<section id="importance-of-data-binning">
+<h3>Importance of Data Binning<a class="headerlink" href="#importance-of-data-binning" title="Link to this heading">#</a></h3>
+<p>Datasets with numerous variables can lead to complex relationships that may distort analysis results. Binning groups similar data together, simplifying the dataset and reducing the impact of individual observation errors.</p>
+<p>We can implement Panda’s cut() and qcut() methods for binning data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;ages&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">32</span><span class="p">]})</span>
+
+<span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">17</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Youth&quot;</span><span class="p">,</span> <span class="s2">&quot;YoungAdult&quot;</span><span class="p">,</span> <span class="s2">&quot;MiddleAged&quot;</span><span class="p">,</span> <span class="s2">&quot;Senior&quot;</span><span class="p">]</span>
+<span class="c1"># it&#39;s noteworthy that the bins we create are right-closed intervals e.g. Youth = (17, 25] and YoungAdult = (25, 35] ...</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;categories&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ages&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;categories&#39;</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;categories&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">category</span><span class="p">][</span><span class="s1">&#39;ages&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>YoungAdult: [27, 31, 32]
+Senior: [61]
+Youth: [20, 22, 25, 21, 23]
+MiddleAged: [37, 45, 41]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;categories&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>categories
+Youth         5
+YoungAdult    3
+MiddleAged    3
+Senior        1
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># with qcut() bins&#39; boundaries are automatically adjusted so that all the bins contain the same number of values </span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;categories&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ages&#39;</span><span class="p">],</span> <span class="n">q</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Q1&quot;</span><span class="p">,</span> <span class="s2">&quot;Q2&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">,</span> <span class="s2">&quot;Q4&quot;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;quartile_categories&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ages&#39;</span><span class="p">],</span> <span class="n">q</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+
+<span class="c1"># providing labels to bins makes the quartiles easier to understand and interpret.</span>
+<span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;quartile_categories&#39;</span><span class="p">])):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;quartile_categories&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">category</span><span class="p">][</span><span class="s1">&#39;ages&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    ages       categories
+0     20  (19.999, 22.75]
+1     22  (19.999, 22.75]
+2     25    (22.75, 29.0]
+3     27    (22.75, 29.0]
+4     21  (19.999, 22.75]
+5     23    (22.75, 29.0]
+6     37     (29.0, 38.0]
+7     31     (29.0, 38.0]
+8     61     (38.0, 61.0]
+9     45     (38.0, 61.0]
+10    41     (38.0, 61.0]
+11    32     (29.0, 38.0]
+Q1: [20, 22, 21]
+Q2: [25, 27, 23]
+Q3: [37, 31, 32]
+Q4: [61, 45, 41]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;StudentAge&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">]})</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">19</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grade1&quot;</span><span class="p">,</span> <span class="s2">&quot;grade2&quot;</span><span class="p">,</span> <span class="s2">&quot;grade3&quot;</span><span class="p">,</span> <span class="s2">&quot;grade4&quot;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;GradeLevel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;StudentAge&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+
+<span class="n">students</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">24</span><span class="p">]})</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;primary&quot;</span><span class="p">,</span> <span class="s2">&quot;middle&quot;</span><span class="p">,</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="s2">&quot;college&quot;</span><span class="p">]</span>
+<span class="n">students</span><span class="p">[</span><span class="s1">&#39;school_level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">students</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="n">q</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">groups</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   StudentAge GradeLevel
+0          10     grade2
+1          12     grade2
+2          14     grade3
+3           9     grade1
+4          15     grade3
+5          19     grade4
+6          17     grade4
+7          12     grade2
+8          10     grade2
+9          14     grade3
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="random-quote">
+<h1>Random Quote<a class="headerlink" href="#random-quote" title="Link to this heading">#</a></h1>
+<p>“Errors are merely opportunities to learn.”</p>
+<p>So in other words, make more errors because that is how you learn.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Chapter%201-%20Descriptive%20Statistics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1- Descriptive Statistics</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Chapter%203-%20Advanced%20Preprocessing%20Techniques.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 3- Advanced Preprocessing Techniques</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chapter 2- Data Cleaning and Preprocessing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-art-of-data-cleaning">The Art of Data Cleaning</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-values-identification-and-handling">Missing Values Identification and Handling</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identification-and-counts">Identification and Counts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-fillna-dropna">Handling (fillna(), dropna())</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-redundant-or-correlated-features">Handling Redundant or Correlated Features</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#duplicates-and-outliers-observations">Duplicates and Outliers observations</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-duplicates">Handling Duplicates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-outliers">Handling Outliers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-z-score">Using Z-score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-iqr">Using IQR</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-normalization-scaling-techniques-standard-minmax-robust">Data Normalization/Scaling Techniques (Standard, MinMax, Robust)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-minmax-and-zscore-scaling">Manual MinMax and Zscore Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-standardscalar-minmaxscaler-robustscaler">sklearn StandardScalar(), MinMaxScaler(), RobustScaler()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-right-scaling-method">Choosing the Right Scaling Method</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-data-encoding-techniques">Categorical Data Encoding Techniques</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding-pd-get-dummies">One-Hot Encoding (pd.get_dummies())</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-one-hot-encoding">Why One-Hot Encoding?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-encoding-pd-factorize">Label Encoding (pd.factorize())</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-label-encoding">Manual label encoding</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-data-encoding-pitfalls-and-best-practices">Categorical Data Encoding Pitfalls and Best Practices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-selection">Feature Selection</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-for-better-predictions">Feature Engineering for better predictions</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-binning-techniques">Data Binning Techniques</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importance-of-data-binning">Importance of Data Binning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#random-quote">Random Quote</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Amna Gul
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

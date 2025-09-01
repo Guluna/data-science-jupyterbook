@@ -1,0 +1,14 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: Chapter 1- Descriptive Statistics
+- file: Chapter 2- Data Cleaning and Preprocessing
+- file: Chapter 3- Advanced Preprocessing Techniques
+- file: Chapter 4- Code Optimization
+- file: Chapter 5- Hypothesis Testing in Python
+- file: Chapter 6- Supervised ML
+- file: Chapter 7- Unsupervised ML
+- file: Chapter 8- Data Visualization

@@ -1,0 +1,1023 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 3- Advanced Preprocessing Techniques &#8212; Data Science Core Concepts</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter 3- Advanced Preprocessing Techniques';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 4- Code Optimization" href="Chapter%204-%20Code%20Optimization.html" />
+    <link rel="prev" title="Chapter 2- Data Cleaning and Preprocessing" href="Chapter%202-%20Data%20Cleaning%20and%20Preprocessing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Data Science Core Concepts - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Data Science Core Concepts - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your journey in the world of Data Science
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Chapter%201-%20Descriptive%20Statistics.html">Chapter 1- Descriptive Statistics</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%202-%20Data%20Cleaning%20and%20Preprocessing.html">Chapter 2- Data Cleaning and Preprocessing</a></li>
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Chapter 3- Advanced Preprocessing Techniques</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%204-%20Code%20Optimization.html">Chapter 4- Code Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chapter%205-%20Hypothesis%20Testing%20in%20Python.html">Chapter 5- Hypothesis Testing in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chapter%206-%20Supervised%20ML.html">Chapter 6- Supervised ML</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%207-%20Unsupervised%20ML.html">Chapter 7- Unsupervised ML</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%208-%20Data%20Visualization.html">Chapter 8- Data Visualization</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Guluna/TechInterviewPrep" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Guluna/TechInterviewPrep/issues/new?title=Issue%20on%20page%20%2FChapter 3- Advanced Preprocessing Techniques.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Chapter 3- Advanced Preprocessing Techniques.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 3- Advanced Preprocessing Techniques</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chapter 3- Advanced Preprocessing Techniques</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-dataframes">Merging DataFrames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concat-dataframes">Concat DataFrames</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping-in-pandas">Grouping in Pandas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#groupby-apply-and-lambda-fn">Groupby(), apply() and lambda fn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-aggregation-functions-after-grouping-or-iterating-through-groups">Applying Aggregation Functions after Grouping or Iterating Through Groups</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-grouped-dataframe-using-boolean-lambda-function">Filtering Grouped DataFrame Using Boolean Lambda Function</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#master-sorting">Master Sorting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-on-multiple-columns">Sorting on multiple columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-on-multiple-columns-in-different-order">Sorting on multiple columns in different order</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#random-quote">Random Quote</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="chapter-3-advanced-preprocessing-techniques">
+<h1>Chapter 3- Advanced Preprocessing Techniques<a class="headerlink" href="#chapter-3-advanced-preprocessing-techniques" title="Link to this heading">#</a></h1>
+<section id="merging-dataframes">
+<h2>Merging DataFrames<a class="headerlink" href="#merging-dataframes" title="Link to this heading">#</a></h2>
+<p>A critical aspect in data analysis and feature engineering is combining multiple datasets because more often, it’s spread across several sources, waiting to be collected, organized, and analyzed. Let’s learn how to use this powerful tool to combine DataFrames and discover the various merge operations and their usage in different scenarios.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df_books</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+     <span class="s2">&quot;Book_ID&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+     <span class="s2">&quot;Book_Title&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Gatsby&#39;</span><span class="p">,</span> <span class="s1">&#39;Mockingbird&#39;</span><span class="p">,</span> <span class="s1">&#39;1984&#39;</span><span class="p">,</span> <span class="s1">&#39;Catcher&#39;</span><span class="p">,</span> <span class="s1">&#39;LOTR&#39;</span><span class="p">],</span>
+     <span class="s2">&quot;Author_ID&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">112</span><span class="p">],</span>
+     <span class="s2">&quot;Genre&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Fiction&#39;</span><span class="p">,</span> <span class="s1">&#39;Fiction&#39;</span><span class="p">,</span> <span class="s1">&#39;Fiction&#39;</span><span class="p">,</span> <span class="s1">&#39;Fiction&#39;</span><span class="p">,</span> <span class="s1">&#39;Fantasy&#39;</span><span class="p">]</span>
+ <span class="p">})</span>
+
+<span class="c1"># creating the DataFrame for Authors</span>
+<span class="n">df_authors</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Author_ID&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">105</span><span class="p">],</span>
+    <span class="s2">&quot;Author_Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;F. Fitzgerald&#39;</span><span class="p">,</span> <span class="s1">&#39;H. Lee&#39;</span><span class="p">,</span> <span class="s1">&#39;G. Orwell&#39;</span><span class="p">,</span> <span class="s1">&#39;J. Salinger&#39;</span><span class="p">,</span> <span class="s1">&#39;J. Tolkien&#39;</span><span class="p">],</span>
+    <span class="s2">&quot;Nationality&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;American&#39;</span><span class="p">,</span> <span class="s1">&#39;American&#39;</span><span class="p">,</span> <span class="s1">&#39;British&#39;</span><span class="p">,</span> <span class="s1">&#39;American&#39;</span><span class="p">,</span> <span class="s1">&#39;British&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Two important things to note:</p>
+<ul class="simple">
+<li><p>The author with Author_ID=112 is missing in the df_authors dataframe</p></li>
+<li><p>The book named Catcher in the df_books dataframe misses info about its author</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># inner join will have only rows with common Author_ID in both dataframes, so we don&#39;t include books where author information is missing or undefined.</span>
+<span class="n">merged_df</span> <span class="o">=</span> <span class="n">df_books</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_authors</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;Author_ID&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Book_ID   Book_Title  Author_ID    Genre    Author_Name Nationality
+0        1       Gatsby      101.0  Fiction  F. Fitzgerald    American
+1        2  Mockingbird      102.0  Fiction         H. Lee    American
+2        3         1984      103.0  Fiction      G. Orwell     British
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># outer join includes all the rows from both DataFrames and fills NaN for missing values</span>
+<span class="n">merged_df</span> <span class="o">=</span> <span class="n">df_books</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_authors</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;Author_ID&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Book_ID   Book_Title  Author_ID    Genre    Author_Name Nationality
+0      1.0       Gatsby      101.0  Fiction  F. Fitzgerald    American
+1      2.0  Mockingbird      102.0  Fiction         H. Lee    American
+2      3.0         1984      103.0  Fiction      G. Orwell     British
+3      NaN          NaN      104.0      NaN    J. Salinger    American
+4      NaN          NaN      105.0      NaN     J. Tolkien     British
+5      5.0         LOTR      112.0  Fantasy            NaN         NaN
+6      4.0      Catcher        NaN  Fiction            NaN         NaN
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># left join includes all rows from the first DataFrame and fills NaN for missing values in the second DataFrame</span>
+<span class="n">merged_df</span> <span class="o">=</span> <span class="n">df_books</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_authors</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;Author_ID&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Book_ID   Book_Title  Author_ID    Genre    Author_Name Nationality
+0        1       Gatsby      101.0  Fiction  F. Fitzgerald    American
+1        2  Mockingbird      102.0  Fiction         H. Lee    American
+2        3         1984      103.0  Fiction      G. Orwell     British
+3        4      Catcher        NaN  Fiction            NaN         NaN
+4        5         LOTR      112.0  Fantasy            NaN         NaN
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># right join includes all rows from the second DataFrame, in reverse to a left join.</span>
+<span class="n">merged_df</span> <span class="o">=</span> <span class="n">df_books</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_authors</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;Author_ID&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Book_ID   Book_Title  Author_ID    Genre    Author_Name Nationality
+0      1.0       Gatsby      101.0  Fiction  F. Fitzgerald    American
+1      2.0  Mockingbird      102.0  Fiction         H. Lee    American
+2      3.0         1984      103.0  Fiction      G. Orwell     British
+3      NaN          NaN      104.0      NaN    J. Salinger    American
+4      NaN          NaN      105.0      NaN     J. Tolkien     British
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="concat-dataframes">
+<h2>Concat DataFrames<a class="headerlink" href="#concat-dataframes" title="Link to this heading">#</a></h2>
+<p>ignore_index=True parameter? When set to True, it resets the index in the resulting DataFrame. So, in the resultant DataFrame, the indices are in increasing order starting from 0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># df1</span>
+<span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;John&quot;</span><span class="p">,</span> <span class="s2">&quot;Anna&quot;</span><span class="p">,</span> <span class="s2">&quot;Peter&quot;</span><span class="p">],</span>
+             <span class="s2">&quot;Age&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">33</span><span class="p">],</span>
+             <span class="s2">&quot;City&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;New York&quot;</span><span class="p">,</span> <span class="s2">&quot;Los Angeles&quot;</span><span class="p">,</span> <span class="s2">&quot;Berlin&quot;</span><span class="p">]}</span>
+
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="n">isYouthful</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">age</span><span class="p">:</span> <span class="s2">&quot;Yes&quot;</span> <span class="k">if</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">30</span> <span class="k">else</span> <span class="s2">&quot;No&quot;</span>
+<span class="n">df1</span><span class="p">[</span><span class="s2">&quot;IsYouthful&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">isYouthful</span><span class="p">)</span>
+
+<span class="c1"># df2</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Megan&quot;</span><span class="p">],</span> <span class="s2">&quot;Age&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">34</span><span class="p">],</span> <span class="s2">&quot;City&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;San Francisco&quot;</span><span class="p">],</span> <span class="s2">&quot;IsYouthful&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;No&quot;</span><span class="p">]})</span>
+
+<span class="c1"># concat df1 and df2</span>
+<span class="n">df_concatenated</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df_concatenated</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Name  Age           City IsYouthful
+0   John   28       New York        Yes
+1   Anna   24    Los Angeles        Yes
+2  Peter   33         Berlin         No
+3  Megan   34  San Francisco         No
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="grouping-in-pandas">
+<h1>Grouping in Pandas<a class="headerlink" href="#grouping-in-pandas" title="Link to this heading">#</a></h1>
+<p>Grouping rows of a DataFrame is a powerful tool that allows you to aggregate rows based on the values in one or more columns of your data. The groupby function in pandas is the basis of group operations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Alex&quot;</span><span class="p">,</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="s2">&quot;Chloe&quot;</span><span class="p">,</span> <span class="s2">&quot;Charlie&quot;</span><span class="p">,</span> <span class="s2">&quot;Alex&quot;</span><span class="p">,</span> <span class="s2">&quot;Charlie&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;Age&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">35</span><span class="p">],</span>
+    <span class="s2">&quot;City&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;New York&quot;</span><span class="p">,</span> <span class="s2">&quot;Los Angeles&quot;</span><span class="p">,</span> <span class="s2">&quot;Chicago&quot;</span><span class="p">,</span> <span class="s2">&quot;Los Angeles&quot;</span><span class="p">,</span> <span class="s2">&quot;New York&quot;</span><span class="p">,</span> <span class="s2">&quot;New York&quot;</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># the grouped variable is a special pandas DataFrameGroupBy object that has divided our DataFrame into groups by city. It&#39;s like a dictionary: </span>
+<span class="c1"># each key is a unique city from our City column, and the corresponding value for each key is a DataFrame comprising all rows with that city in the City column.</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;City&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">grouped</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;New York&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Name  Age      City
+0     Alex   12  New York
+4     Alex   21  New York
+5  Charlie   35  New York
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="c1"># Create a simple dataframe</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Company&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;GOOG&#39;</span><span class="p">,</span> <span class="s1">&#39;GOOG&#39;</span><span class="p">,</span> <span class="s1">&#39;MSFT&#39;</span><span class="p">,</span> <span class="s1">&#39;MSFT&#39;</span><span class="p">,</span> <span class="s1">&#39;FB&#39;</span><span class="p">,</span> <span class="s1">&#39;FB&#39;</span><span class="p">],</span>
+       <span class="s1">&#39;Person&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Sam&#39;</span><span class="p">,</span> <span class="s1">&#39;Charlie&#39;</span><span class="p">,</span> <span class="s1">&#39;Amy&#39;</span><span class="p">,</span> <span class="s1">&#39;Vanessa&#39;</span><span class="p">,</span> <span class="s1">&#39;Carl&#39;</span><span class="p">,</span> <span class="s1">&#39;Sarah&#39;</span><span class="p">],</span>
+       <span class="s1">&#39;Sales&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">340</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">350</span><span class="p">]}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Apply groupby</span>
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Company&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">df_grouped</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Group Key: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="c1"># print(df_grouped.get_group(key), &quot;\n&quot;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Group Key: FB
+  Company Person  Sales
+4      FB   Carl    243
+5      FB  Sarah    350
+
+Group Key: GOOG
+  Company   Person  Sales
+0    GOOG      Sam    200
+1    GOOG  Charlie    120
+
+Group Key: MSFT
+  Company   Person  Sales
+2    MSFT      Amy    340
+3    MSFT  Vanessa    124
+</pre></div>
+</div>
+</div>
+</div>
+<p>The  benefit of the groupby method is the variety of operations we can perform on the groupby object. Functions like sum(), mean(), etc., help us simplify the grouped data into more insightful information. Here’s how we can use groupby and find out the total sales for each company</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Company&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grouped</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>             Person  Sales
+Company                   
+FB        CarlSarah    593
+GOOG     SamCharlie    320
+MSFT     AmyVanessa    464
+</pre></div>
+</div>
+</div>
+</div>
+<section id="groupby-apply-and-lambda-fn">
+<h2>Groupby(), apply() and lambda fn<a class="headerlink" href="#groupby-apply-and-lambda-fn" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using apply() on groupby object</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Company&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Company
+FB      350
+GOOG    200
+MSFT    340
+dtype: int64
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/ll/1x3pcpw96cn3pc3l3hqztlvr0000gn/T/ipykernel_157/4292066780.py:2: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  print(df.groupby(&#39;Company&#39;).apply(lambda x: x[&#39;Sales&#39;].max()))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># same thing as above</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Company&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grouped</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          Person  Sales
+Company                
+FB         Sarah    350
+GOOG         Sam    200
+MSFT     Vanessa    340
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="applying-aggregation-functions-after-grouping-or-iterating-through-groups">
+<h2>Applying Aggregation Functions after Grouping or Iterating Through Groups<a class="headerlink" href="#applying-aggregation-functions-after-grouping-or-iterating-through-groups" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">grouped</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">grouped</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">City:&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of people:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average age:&quot;</span><span class="p">,</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">grouped</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">grouped</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">City:&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.5/envs/jupybook_env/lib/python3.13/site-packages/pandas/core/groupby/generic.py:1951,</span> in <span class="ni">DataFrameGroupBy.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1944</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1945</span>     <span class="c1"># if len == 1, then it becomes a SeriesGroupBy and this is actually</span>
+<span class="g g-Whitespace">   </span><span class="mi">1946</span>     <span class="c1"># valid syntax, so don&#39;t raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">1947</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1948</span>         <span class="s2">&quot;Cannot subset columns with a tuple with more than one element. &quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1949</span>         <span class="s2">&quot;Use a list instead.&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1950</span>     <span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1951</span> <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.5/envs/jupybook_env/lib/python3.13/site-packages/pandas/core/base.py:245,</span> in <span class="ni">SelectionMixin.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">243</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">244</span>     <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">245</span>         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column not found: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">246</span>     <span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">ndim</span>
+<span class="g g-Whitespace">    </span><span class="mi">247</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gotitem</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: &#39;Column not found: Age&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="filtering-grouped-dataframe-using-boolean-lambda-function">
+<h1>Filtering Grouped DataFrame Using Boolean Lambda Function<a class="headerlink" href="#filtering-grouped-dataframe-using-boolean-lambda-function" title="Link to this heading">#</a></h1>
+<p>Boolean selection does not apply to grouped dataframes. Instead, we use the filter() function, which takes a boolean function as an argument. For instance, let’s keep products with a summary quantity greater than 90.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+  <span class="s1">&#39;Product&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Apple&#39;</span><span class="p">,</span> <span class="s1">&#39;Banana&#39;</span><span class="p">,</span> <span class="s1">&#39;Pear&#39;</span><span class="p">,</span> <span class="s1">&#39;Apple&#39;</span><span class="p">,</span> <span class="s1">&#39;Banana&#39;</span><span class="p">,</span> <span class="s1">&#39;Pear&#39;</span><span class="p">],</span>
+  <span class="s1">&#39;Store&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Store1&#39;</span><span class="p">,</span> <span class="s1">&#39;Store1&#39;</span><span class="p">,</span> <span class="s1">&#39;Store1&#39;</span><span class="p">,</span> <span class="s1">&#39;Store2&#39;</span><span class="p">,</span> <span class="s1">&#39;Store2&#39;</span><span class="p">,</span> <span class="s1">&#39;Store2&#39;</span><span class="p">],</span>
+  <span class="s1">&#39;Quantity&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Product&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">grouped</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s1">&#39;Apple&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Product   Store  Quantity
+0   Apple  Store1        20
+3   Apple  Store2        50
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grouped</span> <span class="o">=</span> <span class="n">sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Product&#39;</span><span class="p">)</span>
+
+<span class="c1"># filtering using boolean lambda fn</span>
+<span class="n">filtered_df</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;Quantity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">90</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">filtered_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Product   Store  Quantity
+2    Pear  Store1        40
+5    Pear  Store2        70
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="master-sorting">
+<h1>Master Sorting<a class="headerlink" href="#master-sorting" title="Link to this heading">#</a></h1>
+<p>Let us see how to use Panda’s sort_values() function for single and multi-column sorting and how to handle missing values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Player&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;L. James&#39;</span><span class="p">,</span> <span class="s1">&#39;K. Durant&#39;</span><span class="p">,</span> <span class="s1">&#39;M. Jordan&#39;</span><span class="p">,</span>  <span class="s1">&#39;S. Curry&#39;</span><span class="p">,</span> <span class="s1">&#39;K. Bryant&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Points&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">27.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">],</span>
+    <span class="s1">&#39;Assists&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">5.7</span><span class="p">,</span> <span class="mf">4.7</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">,</span> <span class="mf">7.4</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">sorted_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Points&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sorted_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Player  Points  Assists
+2  M. Jordan    32.0      4.2
+0   L. James    27.0      5.7
+1  K. Durant    26.0      4.7
+4  K. Bryant    26.0      7.4
+3   S. Curry    24.0      6.6
+</pre></div>
+</div>
+</div>
+</div>
+<section id="sorting-on-multiple-columns">
+<h2>Sorting on multiple columns<a class="headerlink" href="#sorting-on-multiple-columns" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sorting on multiple columns</span>
+<span class="n">sorted_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Points&#39;</span><span class="p">,</span> <span class="s1">&#39;Assists&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sorted_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Player  Points  Assists
+2  M. Jordan    32.0      4.2
+0   L. James    27.0      5.7
+4  K. Bryant    26.0      7.4
+1  K. Durant    26.0      4.7
+3   S. Curry    24.0      6.6
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sorting-on-multiple-columns-in-different-order">
+<h2>Sorting on multiple columns in different order<a class="headerlink" href="#sorting-on-multiple-columns-in-different-order" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sorted_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Points&#39;</span><span class="p">,</span> <span class="s1">&#39;Player&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sorted_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Player  Points  Assists
+2  M. Jordan    32.0      4.2
+0   L. James    27.0      5.7
+4  K. Bryant    26.0      7.4
+1  K. Durant    26.0      4.7
+3   S. Curry    24.0      6.6
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="random-quote">
+<h1>Random Quote<a class="headerlink" href="#random-quote" title="Link to this heading">#</a></h1>
+<p>“It is wise to be cheerful”</p>
+<p>“Careful” or any positive word might also fit well in the quote above.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Chapter%202-%20Data%20Cleaning%20and%20Preprocessing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 2- Data Cleaning and Preprocessing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Chapter%204-%20Code%20Optimization.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 4- Code Optimization</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chapter 3- Advanced Preprocessing Techniques</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-dataframes">Merging DataFrames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concat-dataframes">Concat DataFrames</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping-in-pandas">Grouping in Pandas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#groupby-apply-and-lambda-fn">Groupby(), apply() and lambda fn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-aggregation-functions-after-grouping-or-iterating-through-groups">Applying Aggregation Functions after Grouping or Iterating Through Groups</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-grouped-dataframe-using-boolean-lambda-function">Filtering Grouped DataFrame Using Boolean Lambda Function</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#master-sorting">Master Sorting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-on-multiple-columns">Sorting on multiple columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-on-multiple-columns-in-different-order">Sorting on multiple columns in different order</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#random-quote">Random Quote</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Amna Gul
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

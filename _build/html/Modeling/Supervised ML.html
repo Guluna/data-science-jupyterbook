@@ -1,0 +1,1271 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Dataset &#8212; Data Science Core Concepts</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Modeling/Supervised ML';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Data Science Core Concepts - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Data Science Core Concepts - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to your journey in the world of Data Science
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Chapter%201-%20Descriptive%20Statistics.html">Intro to NumPy</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Guluna/TechInterviewPrep" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Guluna/TechInterviewPrep/issues/new?title=Issue%20on%20page%20%2FModeling/Supervised ML.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Modeling/Supervised ML.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Dataset</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Dataset</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-dataset">Load the dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eda">EDA</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent">Gradient Descent</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression">Linear Regression</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-the-performance-of-a-linear-regression-model">Evaluating the performance of a Linear Regression model</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic Regression</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-the-performance-of-a-logistic-regression-model">Evaluating the performance of a Logistic Regression model</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-overfitting-and-underfitting">Model Overfitting and Underfitting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-unbiased-evaluation-techniques">Advanced/Unbiased Evaluation Techniques</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="dataset">
+<h1>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h1>
+<section id="load-the-dataset">
+<h2>Load the dataset<a class="headerlink" href="#load-the-dataset" title="Link to this heading">#</a></h2>
+<p>The Wine Quality dataset sourced from the UCI Machine Learning Repository encompasses data on wines, specifically, the physicochemical properties of red and white variants of wine. The dataset consists of 12 variables, inclusive of quality — the target variable</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Load the red wine quality dataset</span>
+<span class="n">red_wine_url</span> <span class="o">=</span> <span class="s1">&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv&#39;</span>
+<span class="n">red_wine</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">red_wine_url</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Red Wine Dataset:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">red_wine</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Shape:&quot;</span><span class="p">,</span> <span class="n">red_wine</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Load the white wine quality dataset</span>
+<span class="n">white_wine_url</span> <span class="o">=</span> <span class="s1">&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-white.csv&#39;</span>
+<span class="n">white_wine</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">white_wine_url</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">White Wine Dataset:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">white_wine</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Shape:&quot;</span><span class="p">,</span> <span class="n">white_wine</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Red Wine Dataset:
+   fixed acidity  volatile acidity  citric acid  residual sugar  chlorides  \
+0            7.4              0.70         0.00             1.9      0.076   
+1            7.8              0.88         0.00             2.6      0.098   
+2            7.8              0.76         0.04             2.3      0.092   
+3           11.2              0.28         0.56             1.9      0.075   
+4            7.4              0.70         0.00             1.9      0.076   
+
+   free sulfur dioxide  total sulfur dioxide  density    pH  sulphates  \
+0                 11.0                  34.0   0.9978  3.51       0.56   
+1                 25.0                  67.0   0.9968  3.20       0.68   
+2                 15.0                  54.0   0.9970  3.26       0.65   
+3                 17.0                  60.0   0.9980  3.16       0.58   
+4                 11.0                  34.0   0.9978  3.51       0.56   
+
+   alcohol  quality  
+0      9.4        5  
+1      9.8        5  
+2      9.8        5  
+3      9.8        6  
+4      9.4        5  
+
+Shape: (1599, 12)
+
+White Wine Dataset:
+   fixed acidity  volatile acidity  citric acid  residual sugar  chlorides  \
+0            7.0              0.27         0.36            20.7      0.045   
+1            6.3              0.30         0.34             1.6      0.049   
+2            8.1              0.28         0.40             6.9      0.050   
+3            7.2              0.23         0.32             8.5      0.058   
+4            7.2              0.23         0.32             8.5      0.058   
+
+   free sulfur dioxide  total sulfur dioxide  density    pH  sulphates  \
+0                 45.0                 170.0   1.0010  3.00       0.45   
+1                 14.0                 132.0   0.9940  3.30       0.49   
+2                 30.0                  97.0   0.9951  3.26       0.44   
+3                 47.0                 186.0   0.9956  3.19       0.40   
+4                 47.0                 186.0   0.9956  3.19       0.40   
+
+   alcohol  quality  
+0      8.8        6  
+1      9.5        6  
+2     10.1        6  
+3      9.9        6  
+4      9.9        6  
+
+Shape: (4898, 12)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="eda">
+<h2>EDA<a class="headerlink" href="#eda" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check Red Wine Dataset data types</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Red Wine Dataset Data Types:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">red_wine</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+
+<span class="c1"># Check White Wine Dataset data types</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">White Wine Dataset Data Types:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">white_wine</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Red Wine Dataset Data Types:
+fixed acidity           float64
+volatile acidity        float64
+citric acid             float64
+residual sugar          float64
+chlorides               float64
+free sulfur dioxide     float64
+total sulfur dioxide    float64
+density                 float64
+pH                      float64
+sulphates               float64
+alcohol                 float64
+quality                   int64
+dtype: object
+
+White Wine Dataset Data Types:
+fixed acidity           float64
+volatile acidity        float64
+citric acid             float64
+residual sugar          float64
+chlorides               float64
+free sulfur dioxide     float64
+total sulfur dioxide    float64
+density                 float64
+pH                      float64
+sulphates               float64
+alcohol                 float64
+quality                   int64
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Describing Red Wine Dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Red Wine Dataset Description:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">red_wine</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="c1"># Describing White Wine Dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">White Wine Dataset Description:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">white_wine</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Red Wine Dataset Description:
+       fixed acidity  volatile acidity  citric acid  residual sugar  \
+count    1599.000000       1599.000000  1599.000000     1599.000000   
+mean        8.319637          0.527821     0.270976        2.538806   
+std         1.741096          0.179060     0.194801        1.409928   
+min         4.600000          0.120000     0.000000        0.900000   
+25%         7.100000          0.390000     0.090000        1.900000   
+50%         7.900000          0.520000     0.260000        2.200000   
+75%         9.200000          0.640000     0.420000        2.600000   
+max        15.900000          1.580000     1.000000       15.500000   
+
+         chlorides  free sulfur dioxide  total sulfur dioxide      density  \
+count  1599.000000          1599.000000           1599.000000  1599.000000   
+mean      0.087467            15.874922             46.467792     0.996747   
+std       0.047065            10.460157             32.895324     0.001887   
+min       0.012000             1.000000              6.000000     0.990070   
+25%       0.070000             7.000000             22.000000     0.995600   
+50%       0.079000            14.000000             38.000000     0.996750   
+75%       0.090000            21.000000             62.000000     0.997835   
+max       0.611000            72.000000            289.000000     1.003690   
+
+                pH    sulphates      alcohol      quality  
+count  1599.000000  1599.000000  1599.000000  1599.000000  
+mean      3.311113     0.658149    10.422983     5.636023  
+std       0.154386     0.169507     1.065668     0.807569  
+min       2.740000     0.330000     8.400000     3.000000  
+25%       3.210000     0.550000     9.500000     5.000000  
+50%       3.310000     0.620000    10.200000     6.000000  
+75%       3.400000     0.730000    11.100000     6.000000  
+max       4.010000     2.000000    14.900000     8.000000  
+
+White Wine Dataset Description:
+       fixed acidity  volatile acidity  citric acid  residual sugar  \
+count    4898.000000       4898.000000  4898.000000     4898.000000   
+mean        6.854788          0.278241     0.334192        6.391415   
+std         0.843868          0.100795     0.121020        5.072058   
+min         3.800000          0.080000     0.000000        0.600000   
+25%         6.300000          0.210000     0.270000        1.700000   
+50%         6.800000          0.260000     0.320000        5.200000   
+75%         7.300000          0.320000     0.390000        9.900000   
+max        14.200000          1.100000     1.660000       65.800000   
+
+         chlorides  free sulfur dioxide  total sulfur dioxide      density  \
+count  4898.000000          4898.000000           4898.000000  4898.000000   
+mean      0.045772            35.308085            138.360657     0.994027   
+std       0.021848            17.007137             42.498065     0.002991   
+min       0.009000             2.000000              9.000000     0.987110   
+25%       0.036000            23.000000            108.000000     0.991723   
+50%       0.043000            34.000000            134.000000     0.993740   
+75%       0.050000            46.000000            167.000000     0.996100   
+max       0.346000           289.000000            440.000000     1.038980   
+
+                pH    sulphates      alcohol      quality  
+count  4898.000000  4898.000000  4898.000000  4898.000000  
+mean      3.188267     0.489847    10.514267     5.877909  
+std       0.151001     0.114126     1.230621     0.885639  
+min       2.720000     0.220000     8.000000     3.000000  
+25%       3.090000     0.410000     9.500000     5.000000  
+50%       3.180000     0.470000    10.400000     6.000000  
+75%       3.280000     0.550000    11.400000     6.000000  
+max       3.820000     1.080000    14.200000     9.000000  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Unique values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Unique values in Red Wine Dataset:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">red_wine</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+
+<span class="c1"># Unique values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Unique values in White Wine Dataset:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">white_wine</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Unique values in Red Wine Dataset:
+fixed acidity            96
+volatile acidity        143
+citric acid              80
+residual sugar           91
+chlorides               153
+free sulfur dioxide      60
+total sulfur dioxide    144
+density                 436
+pH                       89
+sulphates                96
+alcohol                  65
+quality                   6
+dtype: int64
+
+Unique values in White Wine Dataset:
+fixed acidity            68
+volatile acidity        125
+citric acid              87
+residual sugar          310
+chlorides               160
+free sulfur dioxide     132
+total sulfur dioxide    251
+density                 890
+pH                      103
+sulphates                79
+alcohol                 103
+quality                   7
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check missing values in Red Wine Dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Missing values in Red Wine Dataset:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">red_wine</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="c1"># There are no null values in all columns</span>
+
+
+<span class="c1"># Check missing values in White Wine Dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Missing values in White Wine Dataset:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">white_wine</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="c1"># There are no null values in all columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Missing values in Red Wine Dataset:
+fixed acidity           0
+volatile acidity        0
+citric acid             0
+residual sugar          0
+chlorides               0
+free sulfur dioxide     0
+total sulfur dioxide    0
+density                 0
+pH                      0
+sulphates               0
+alcohol                 0
+quality                 0
+dtype: int64
+
+Missing values in White Wine Dataset:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fixed acidity           0
+volatile acidity        0
+citric acid             0
+residual sugar          0
+chlorides               0
+free sulfur dioxide     0
+total sulfur dioxide    0
+density                 0
+pH                      0
+sulphates               0
+alcohol                 0
+quality                 0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Plot for Red Wine</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">red_wine</span><span class="o">.</span><span class="n">quality</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Quality&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Quality Distribution for Red Wine&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Plot for White Wine</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">white_wine</span><span class="o">.</span><span class="n">quality</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Quality&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Quality Distribution for White Wine&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6f37d046322d001a0bd3186fde8642df781decc85aace77ed602331e5c65a5a1.png" src="../_images/6f37d046322d001a0bd3186fde8642df781decc85aace77ed602331e5c65a5a1.png" />
+<img alt="../_images/e65f4a9e6ac9819c1289492e6d5142d2f5dfa43508608d970f0c1892814f82ed.png" src="../_images/e65f4a9e6ac9819c1289492e6d5142d2f5dfa43508608d970f0c1892814f82ed.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="gradient-descent">
+<h1>Gradient Descent<a class="headerlink" href="#gradient-descent" title="Link to this heading">#</a></h1>
+<p>Gradient Descent is a cornerstone of optimization in machine learning and deep learning. Its function enables the machine learning model to ‘learn,’ thereby improving itself based on its past performance.</p>
+<p>In machine learning, Gradient Descent can be visualized as a careful navigation downwards until we find the valley between hills. The ‘hill’ in this context is the cost function, which quantifies our model’s error. Through a series of small steps, Gradient Descent refines the cost function by ‘walking’ down the hill towards the steepest descent until it reaches the lowest possible point at its optimal state.</p>
+<p>At its core, Gradient Descent relies on two key mathematical mechanisms: <strong>the Cost Function and the Learning Rate</strong>. The Cost Function (or Loss Function) quantifies the disparity between predicted and expected values, presenting it as a single float number. The Learning Rate, symbolized by α, dictates the size of the steps we take downhill. A lower value of α results in smaller, more precise steps, while a high value could cause drastic, potentially unstable steps.</p>
+<p>From our previous analogy, imagine the hill is symbolized by a function of position, g(x). Starting at the hill’s pinnacle (x0​), we revise our position (x) by moving a step proportional to the negative gradient at that location. The gradient g′(x) is simply the derivative of g(x), pointing toward the steepest ascent. Conversely, −g′(x) signifies the fastest descending path. We repeat this stepping process until the gradient becomes zero at the minimum point, indicating no further downhill path, i.e., no additional optimization is required.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># implementing gradient descent</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gradient_descent</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">iterations</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    x -- input dataset</span>
+<span class="sd">    y -- target dataset</span>
+<span class="sd">    theta -- initial parameters</span>
+<span class="sd">    alpha -- learning rate</span>
+<span class="sd">    iterations -- the number of times to execute the algorithm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">m</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">size</span> <span class="c1"># number of data points</span>
+    <span class="n">cost_list</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># list to store the cost function value at each iteration</span>
+    <span class="n">theta_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">theta</span><span class="p">]</span> <span class="c1"># list to store the values of theta at each iteration</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
+        <span class="c1"># calculate our prediction based on our current theta</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+        
+        <span class="c1"># compute the error between our prediction and the actual values</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">prediction</span> <span class="o">-</span> <span class="n">y</span>
+        
+        <span class="c1"># calculate the cost function</span>
+        <span class="n">cost</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+        
+        <span class="c1"># append the cost to the cost_list</span>
+        <span class="n">cost_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">cost</span><span class="p">))</span>
+        
+        <span class="c1"># calculate the gradient descent and update the theta</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">error</span><span class="p">))</span>
+        
+        <span class="c1"># append the updated theta to the theta_list</span>
+        <span class="n">theta_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    
+    <span class="c1"># return the final values of theta, list of all theta, and list of all costs, respectively </span>
+    <span class="k">return</span> <span class="n">theta</span><span class="p">,</span> <span class="n">theta_list</span><span class="p">,</span> <span class="n">cost_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s focus on one feature for simplicity’s sake: alcohol. We will use Python to demonstrate how Gradient Descent can design a model that predicts wine quality based on its alcohol content.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Only consider the &#39;alcohol&#39; column as a predictive feature for now</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">red_wine</span><span class="p">[</span><span class="s1">&#39;alcohol&#39;</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">red_wine</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span>
+
+<span class="c1"># Splitting datasets into training and testing datasets</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># We set our parameters to start at 0</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Define the number of iterations and alpha value</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.0001</span>
+<span class="n">iters</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="c1"># Applying Gradient Descent</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">g</span><span class="p">,</span> <span class="n">theta_list</span><span class="p">,</span> <span class="n">cost_list</span> <span class="o">=</span> <span class="n">gradient_descent</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">iters</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">cost_list</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">iters</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">cost_list</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of iterations&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cost (J)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Convergence of gradient descent&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array(16.30831099), array(15.95933612), array(15.61796191), array(15.2840228), array(14.95735687), array(14.63780571), array(14.32521435), array(14.01943121), array(13.72030801), array(13.4276997), array(13.14146437), array(12.86146324), array(12.58756051), array(12.31962337), array(12.05752189), array(11.80112896), array(11.55032025), array(11.30497414), array(11.06497166), array(10.83019642), array(10.60053456), array(10.37587473), array(10.15610798), array(9.94112773), array(9.73082974), array(9.52511203), array(9.32387484), array(9.12702058), array(8.9344538), array(8.74608111), array(8.56181116), array(8.38155461), array(8.20522403), array(8.03273392), array(7.86400064), array(7.69894235), array(7.53747903), array(7.37953237), array(7.22502578), array(7.07388433), array(6.92603473), array(6.78140529), array(6.63992587), array(6.50152786), array(6.36614416), array(6.2337091), array(6.10415847), array(5.97742945), array(5.85346058), array(5.73219174), array(5.61356413), array(5.49752022), array(5.38400374), array(5.27295964), array(5.16433408), array(5.05807438), array(4.95412901), array(4.85244756), array(4.75298072), array(4.65568027), array(4.56049902), array(4.46739081), array(4.37631048), array(4.28721389), array(4.20005781), array(4.11479999), array(4.03139908), array(3.94981463), array(3.87000709), array(3.79193775), array(3.71556876), array(3.64086308), array(3.56778448), array(3.49629754), array(3.42636757), array(3.35796068), array(3.29104368), array(3.22558413), array(3.16155029), array(3.0989111), array(3.03763618), array(2.97769584), array(2.91906098), array(2.8617032), array(2.80559466), array(2.75070816), array(2.69701709), array(2.6444954), array(2.59311764), array(2.54285888), array(2.49369475), array(2.44560141), array(2.39855555), array(2.35253434), array(2.30751547), array(2.26347711), array(2.2203979), array(2.17825695), array(2.13703383), array(2.09670855), array(2.05726155), array(2.0186737), array(1.9809263), array(1.94400103), array(1.90787999), array(1.87254567), array(1.83798092), array(1.80416899), array(1.77109349), array(1.73873837), array(1.70708794), array(1.67612685), array(1.6458401), array(1.61621298), array(1.58723115), array(1.55888054), array(1.5311474), array(1.50401829), array(1.47748005), array(1.45151981), array(1.42612498), array(1.40128325), array(1.37698258), array(1.35321117), array(1.3299575), array(1.30721029), array(1.28495852), array(1.26319138), array(1.24189834), array(1.22106906), array(1.20069343), array(1.18076159), array(1.16126386), array(1.14219079), array(1.12353313), array(1.10528184), array(1.08742805), array(1.06996312), array(1.05287858), array(1.03616614), array(1.01981769), array(1.00382531), array(0.98818124), array(0.9728779), array(0.95790787), array(0.94326388), array(0.92893884), array(0.91492579), array(0.90121795), array(0.88780867), array(0.87469144), array(0.8618599), array(0.84930783), array(0.83702914), array(0.82501789), array(0.81326824), array(0.80177449), array(0.79053108), array(0.77953255), array(0.76877357), array(0.75824891), array(0.74795348), array(0.73788229), array(0.72803045), array(0.71839318), array(0.70896581), array(0.69974376), array(0.69072257), array(0.68189787), array(0.67326536), array(0.66482087), array(0.6565603), array(0.64847964), array(0.64057498), array(0.63284249), array(0.62527841), array(0.61787907), array(0.61064089), array(0.60356036), array(0.59663404), array(0.58985857), array(0.58323068), array(0.57674714), array(0.57040481), array(0.56420061), array(0.55813155), array(0.55219466), array(0.54638709), array(0.540706), array(0.53514864), array(0.52971232), array(0.52439441), array(0.51919232), array(0.51410353), array(0.50912558), array(0.50425604), array(0.49949256), array(0.49483283), array(0.49027459), array(0.48581563), array(0.48145379), array(0.47718694), array(0.47301303), array(0.46893002), array(0.46493594), array(0.46102885), array(0.45720686), array(0.45346811), array(0.44981079), array(0.44623313), array(0.44273339), array(0.43930987), array(0.43596092), array(0.4326849), array(0.42948024), array(0.42634538), array(0.42327879), array(0.42027899), array(0.41734453), array(0.41447398), array(0.41166595), array(0.40891908), array(0.40623203), array(0.40360351), array(0.40103224), array(0.39851697), array(0.39605649), array(0.39364959), array(0.39129511), array(0.38899192), array(0.38673889), array(0.38453493), array(0.38237897), array(0.38026997), array(0.3782069), array(0.37618876), array(0.37421458), array(0.3722834), array(0.37039428), array(0.36854631), array(0.36673858), array(0.36497022), array(0.36324038), array(0.36154822), array(0.35989291), array(0.35827365), array(0.35668966), array(0.35514017), array(0.35362443), array(0.3521417), array(0.35069126), array(0.34927242), array(0.34788447), array(0.34652676), array(0.34519862), array(0.3438994), array(0.34262848), array(0.34138524), array(0.34016908), array(0.33897941), array(0.33781565), array(0.33667723), array(0.33556361), array(0.33447425), array(0.33340861), array(0.33236618), array(0.33134645), array(0.33034893), array(0.32937314), array(0.3284186), array(0.32748486), array(0.32657144), array(0.32567793), array(0.32480387), array(0.32394885), array(0.32311245), array(0.32229427), array(0.32149391), array(0.32071098), array(0.31994511), array(0.31919591), array(0.31846303), array(0.31774611), array(0.31704481), array(0.31635878), array(0.3156877), array(0.31503123), array(0.31438906), array(0.31376087), array(0.31314637), array(0.31254525), array(0.31195722), array(0.311382), array(0.31081931), array(0.31026887), array(0.30973042), array(0.3092037), array(0.30868845), array(0.30818443), array(0.30769138), array(0.30720907), array(0.30673726), array(0.30627573), array(0.30582425), array(0.30538261), array(0.30495058), array(0.30452797), array(0.30411455), array(0.30371015), array(0.30331455), array(0.30292756), array(0.30254901), array(0.3021787), array(0.30181645), array(0.3014621), array(0.30111546), array(0.30077637), array(0.30044467), array(0.30012019), array(0.29980278), array(0.29949229), array(0.29918855), array(0.29889143), array(0.29860078), array(0.29831647), array(0.29803834), array(0.29776627), array(0.29750013), array(0.29723978), array(0.29698511), array(0.29673598), array(0.29649228), array(0.29625388), array(0.29602068), array(0.29579256), array(0.2955694), array(0.29535111), array(0.29513757), array(0.29492868), array(0.29472434), array(0.29452445), array(0.29432891), array(0.29413764), array(0.29395052), array(0.29376749), array(0.29358844), array(0.29341329), array(0.29324196), array(0.29307435), array(0.2929104), array(0.29275002), array(0.29259313), array(0.29243966), array(0.29228953), array(0.29214267), array(0.29199901), array(0.29185848), array(0.29172101), array(0.29158653), array(0.29145498), array(0.2913263), array(0.29120042), array(0.29107728), array(0.29095682), array(0.29083899), array(0.29072372), array(0.29061097), array(0.29050067), array(0.29039277), array(0.29028722), array(0.29018397), array(0.29008297), array(0.28998417), array(0.28988752), array(0.28979298), array(0.2897005), array(0.28961003), array(0.28952153), array(0.28943495), array(0.28935027), array(0.28926742), array(0.28918639), array(0.28910711), array(0.28902957), array(0.28895371), array(0.2888795), array(0.28880692), array(0.28873591), array(0.28866645), array(0.2885985), array(0.28853203), array(0.28846701), array(0.2884034), array(0.28834118), array(0.28828032), array(0.28822078), array(0.28816254), array(0.28810556), array(0.28804983), array(0.28799531), array(0.28794198), array(0.28788981), array(0.28783878), array(0.28778886), array(0.28774002), array(0.28769225), array(0.28764552), array(0.28759981), array(0.28755509), array(0.28751134), array(0.28746855), array(0.2874267), array(0.28738575), array(0.28734569), array(0.28730651), array(0.28726818), array(0.28723069), array(0.28719401), array(0.28715813), array(0.28712303), array(0.2870887), array(0.28705511), array(0.28702226), array(0.28699012), array(0.28695868), array(0.28692793), array(0.28689785), array(0.28686842), array(0.28683963), array(0.28681147), array(0.28678392), array(0.28675697), array(0.28673061), array(0.28670483), array(0.2866796), array(0.28665493), array(0.28663079), array(0.28660718), array(0.28658408), array(0.28656148), array(0.28653938), array(0.28651776), array(0.28649661), array(0.28647592), array(0.28645568), array(0.28643588), array(0.28641651), array(0.28639757), array(0.28637904), array(0.28636091), array(0.28634317), array(0.28632583), array(0.28630886), array(0.28629226), array(0.28627602), array(0.28626013), array(0.28624459), array(0.28622939), array(0.28621452), array(0.28619998), array(0.28618575), array(0.28617183), array(0.28615821), array(0.28614489), array(0.28613186), array(0.28611912), array(0.28610665), array(0.28609445), array(0.28608252), array(0.28607085), array(0.28605943), array(0.28604827), array(0.28603734), array(0.28602665), array(0.2860162), array(0.28600597), array(0.28599597), array(0.28598618), array(0.28597661), array(0.28596725), array(0.28595809), array(0.28594913), array(0.28594036), array(0.28593179), array(0.2859234), array(0.28591519), array(0.28590717), array(0.28589931), array(0.28589163), array(0.28588412), array(0.28587677), array(0.28586958), array(0.28586255), array(0.28585567), array(0.28584894), array(0.28584235), array(0.28583591), array(0.28582961), array(0.28582345), array(0.28581742), array(0.28581153), array(0.28580576), array(0.28580011), array(0.28579459), array(0.28578919), array(0.28578391), array(0.28577874), array(0.28577369), array(0.28576874), array(0.28576391), array(0.28575918), array(0.28575455), array(0.28575002), array(0.28574559), array(0.28574126), array(0.28573702), array(0.28573287), array(0.28572882), array(0.28572485), array(0.28572097), array(0.28571717), array(0.28571346), array(0.28570983), array(0.28570627), array(0.2857028), array(0.2856994), array(0.28569607), array(0.28569282), array(0.28568963), array(0.28568652), array(0.28568347), array(0.28568049), array(0.28567758), array(0.28567473), array(0.28567194), array(0.28566921), array(0.28566654), array(0.28566393), array(0.28566138), array(0.28565888), array(0.28565643), array(0.28565404), array(0.2856517), array(0.28564942), array(0.28564718), array(0.28564499), array(0.28564285), array(0.28564075), array(0.2856387), array(0.2856367), array(0.28563474), array(0.28563282), array(0.28563094), array(0.28562911), array(0.28562731), array(0.28562556), array(0.28562384), array(0.28562216), array(0.28562051), array(0.2856189), array(0.28561733), array(0.28561579), array(0.28561429), array(0.28561281), array(0.28561137), array(0.28560996), array(0.28560858), array(0.28560724), array(0.28560592), array(0.28560463), array(0.28560336), array(0.28560213), array(0.28560092), array(0.28559974), array(0.28559858), array(0.28559745), array(0.28559635), array(0.28559526), array(0.28559421), array(0.28559317), array(0.28559216), array(0.28559117), array(0.2855902), array(0.28558925), array(0.28558832), array(0.28558741), array(0.28558653), array(0.28558566), array(0.28558481), array(0.28558398), array(0.28558317), array(0.28558237), array(0.28558159), array(0.28558083), array(0.28558009), array(0.28557936), array(0.28557865), array(0.28557795), array(0.28557727), array(0.2855766), array(0.28557595), array(0.28557531), array(0.28557469), array(0.28557408), array(0.28557348), array(0.2855729), array(0.28557233), array(0.28557177), array(0.28557122), array(0.28557069), array(0.28557016), array(0.28556965), array(0.28556915), array(0.28556866), array(0.28556818), array(0.28556771), array(0.28556725), array(0.28556681), array(0.28556637), array(0.28556594), array(0.28556552), array(0.28556511), array(0.28556471), array(0.28556431), array(0.28556393), array(0.28556355), array(0.28556318), array(0.28556282), array(0.28556247), array(0.28556213), array(0.28556179), array(0.28556146), array(0.28556114), array(0.28556082), array(0.28556052), array(0.28556021), array(0.28555992), array(0.28555963), array(0.28555935), array(0.28555907), array(0.2855588), array(0.28555854), array(0.28555828), array(0.28555803), array(0.28555778), array(0.28555754), array(0.2855573), array(0.28555707), array(0.28555684), array(0.28555662), array(0.2855564), array(0.28555619), array(0.28555598), array(0.28555578), array(0.28555558), array(0.28555539), array(0.2855552), array(0.28555501), array(0.28555483), array(0.28555465), array(0.28555448), array(0.28555431), array(0.28555414), array(0.28555398), array(0.28555382), array(0.28555366), array(0.28555351), array(0.28555336), array(0.28555322), array(0.28555307), array(0.28555293), array(0.2855528), array(0.28555266), array(0.28555253), array(0.2855524), array(0.28555228), array(0.28555216), array(0.28555204), array(0.28555192), array(0.28555181), array(0.28555169), array(0.28555158), array(0.28555148), array(0.28555137), array(0.28555127), array(0.28555117), array(0.28555107), array(0.28555098), array(0.28555088), array(0.28555079), array(0.2855507), array(0.28555061), array(0.28555053), array(0.28555044), array(0.28555036), array(0.28555028), array(0.2855502), array(0.28555012), array(0.28555005), array(0.28554997), array(0.2855499), array(0.28554983), array(0.28554976), array(0.2855497), array(0.28554963), array(0.28554956), array(0.2855495), array(0.28554944), array(0.28554938), array(0.28554932), array(0.28554926), array(0.28554921), array(0.28554915), array(0.2855491), array(0.28554904), array(0.28554899), array(0.28554894), array(0.28554889), array(0.28554884), array(0.28554879), array(0.28554875), array(0.2855487), array(0.28554866), array(0.28554862), array(0.28554857), array(0.28554853), array(0.28554849), array(0.28554845), array(0.28554841), array(0.28554837), array(0.28554834), array(0.2855483), array(0.28554826), array(0.28554823), array(0.2855482), array(0.28554816), array(0.28554813), array(0.2855481), array(0.28554807), array(0.28554804), array(0.28554801), array(0.28554798), array(0.28554795), array(0.28554792), array(0.28554789), array(0.28554787), array(0.28554784), array(0.28554781), array(0.28554779), array(0.28554776), array(0.28554774), array(0.28554772), array(0.28554769), array(0.28554767), array(0.28554765), array(0.28554763), array(0.28554761), array(0.28554759), array(0.28554757), array(0.28554755), array(0.28554753), array(0.28554751), array(0.28554749), array(0.28554747), array(0.28554745), array(0.28554744), array(0.28554742), array(0.2855474), array(0.28554739), array(0.28554737), array(0.28554736), array(0.28554734), array(0.28554733), array(0.28554731), array(0.2855473), array(0.28554728), array(0.28554727), array(0.28554726), array(0.28554724), array(0.28554723), array(0.28554722), array(0.28554721), array(0.2855472), array(0.28554718), array(0.28554717), array(0.28554716), array(0.28554715), array(0.28554714), array(0.28554713), array(0.28554712), array(0.28554711), array(0.2855471), array(0.28554709), array(0.28554708), array(0.28554707), array(0.28554706), array(0.28554705), array(0.28554705), array(0.28554704), array(0.28554703), array(0.28554702), array(0.28554701), array(0.28554701), array(0.285547), array(0.28554699), array(0.28554698), array(0.28554698), array(0.28554697), array(0.28554696), array(0.28554696), array(0.28554695), array(0.28554694), array(0.28554694), array(0.28554693), array(0.28554693), array(0.28554692), array(0.28554692), array(0.28554691), array(0.2855469), array(0.2855469), array(0.28554689), array(0.28554689), array(0.28554688), array(0.28554688), array(0.28554687), array(0.28554687), array(0.28554687), array(0.28554686), array(0.28554686), array(0.28554685), array(0.28554685), array(0.28554684), array(0.28554684), array(0.28554684), array(0.28554683), array(0.28554683), array(0.28554683), array(0.28554682), array(0.28554682), array(0.28554682), array(0.28554681), array(0.28554681), array(0.28554681), array(0.2855468), array(0.2855468), array(0.2855468), array(0.28554679), array(0.28554679), array(0.28554679), array(0.28554679), array(0.28554678), array(0.28554678), array(0.28554678), array(0.28554678), array(0.28554677), array(0.28554677), array(0.28554677), array(0.28554677), array(0.28554676), array(0.28554676), array(0.28554676), array(0.28554676), array(0.28554676), array(0.28554675), array(0.28554675), array(0.28554675), array(0.28554675), array(0.28554675), array(0.28554674), array(0.28554674), array(0.28554674), array(0.28554674), array(0.28554674), array(0.28554674), array(0.28554673), array(0.28554673), array(0.28554673), array(0.28554673), array(0.28554673), array(0.28554673), array(0.28554673), array(0.28554672), array(0.28554672), array(0.28554672), array(0.28554672), array(0.28554672), array(0.28554672), array(0.28554672), array(0.28554672), array(0.28554671), array(0.28554671), array(0.28554671), array(0.28554671), array(0.28554671), array(0.28554671), array(0.28554671), array(0.28554671), array(0.28554671), array(0.28554671), array(0.2855467), array(0.2855467), array(0.2855467), array(0.2855467), array(0.2855467), array(0.2855467), array(0.2855467), array(0.2855467), array(0.2855467), array(0.2855467), array(0.2855467), array(0.2855467), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554669), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554668), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667), array(0.28554667)]
+</pre></div>
+</div>
+<img alt="../_images/50d67898a32b29ff4b6cad765806dd584d80db038230a05540aa609613a54dcb.png" src="../_images/50d67898a32b29ff4b6cad765806dd584d80db038230a05540aa609613a54dcb.png" />
+</div>
+</div>
+</section>
+<section id="linear-regression">
+<h1>Linear Regression<a class="headerlink" href="#linear-regression" title="Link to this heading">#</a></h1>
+<p>Linear Regression is fundamental to supervised learning. It becomes particularly useful when the target or outcome variable is continuous. Here we will predict the quality of the wine (a numerical score from 0 to 10, which is continuous) based on several physicochemical properties, such as fixed acidity, volatile acidity, and citric acid, using our dataset.</p>
+<p>Linear Regression algorithm optimizes a straight line to encapsulate the relationship accurately between the input and output variables. This line is modeled using a simple equation, y=mx+c, where y is the dependent variable, m is the slope, x is the independent variable, and c is the y-intercept.</p>
+<p>At the heart of Linear Regression lies the concept of the cost function and hypothesis.</p>
+<ol class="arabic simple">
+<li><p>Hypothesis: The hypothesis is represented as $h_{θ}$(x)=$θ_{0}$+$θ_{1}x$ , where $θ_{0}$​ and $θ_{1}$ are the model’s parameters that we will adjust using gradient descent to minimize the cost function.</p></li>
+<li><p>Cost Function (or Loss Function): It’s also known as the Mean Squared Error (MSE) and it’s given by J(θ)= $\frac{1}{2m}$ $\sum_{i=1}^{m}$ $(Prediction - Actual)^{2}$ where m is the total count of observations and the summation over the squared differences (errors) ensures that the higher the error, the greater the cost.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">metrics</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Select features and target variable</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">red_wine</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;quality&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">red_wine</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span>
+
+<span class="c1"># Split the dataset into a training set and a testing set</span>
+<span class="n">features_train</span><span class="p">,</span> <span class="n">features_test</span><span class="p">,</span> <span class="n">target_train</span><span class="p">,</span> <span class="n">target_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Instantiate and fit the model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">features_train</span><span class="p">,</span> <span class="n">target_train</span><span class="p">)</span>
+
+<span class="c1"># Predict the test features</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">features_test</span><span class="p">)</span>
+
+<span class="c1"># Evaluate the model using MSE</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">target_test</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean Squared Error:&#39;</span><span class="p">,</span> <span class="n">mse</span><span class="p">)</span> <span class="c1"># Mean Squared Error: 0.39002514396395416</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Squared Error: 0.39002514396395416
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Plot target vs prediction</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">target_test</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="c1"># Plot the ideal prediction line (with zero error)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">target_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">target_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="p">[</span><span class="n">target_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">target_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d0d90b2ab0c3219d113784578b7bd0ba687793c62f74f6c325e5d8f352aae58f.png" src="../_images/d0d90b2ab0c3219d113784578b7bd0ba687793c62f74f6c325e5d8f352aae58f.png" />
+</div>
+</div>
+<p>It’s crucial to check the model’s performance by examining the residuals, simply the difference between the actual and predicted values. The smaller the residuals, the better the model performs. We’ll look at two key metrics here:</p>
+<p>1- Mean Squared Error (MSE): The average of the squared errors, with larger errors contributing more due to the squaring. This is the cost function we discussed earlier.</p>
+<p>2- Coefficient of Determination (R-squared): This measures the degree of variation in the target variable that our model could predict. It ranges between 0 and 1, with a higher value representing a higher quality of our model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Evaluate the model using R-squared</span>
+<span class="n">r2_score</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">r2_score</span><span class="p">(</span><span class="n">target_test</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R-squared:&#39;</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">)</span> <span class="c1"># R-squared: 0.4031803412796231</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>R-squared: 0.4031803412796231
+</pre></div>
+</div>
+</div>
+</div>
+<section id="evaluating-the-performance-of-a-linear-regression-model">
+<h2>Evaluating the performance of a Linear Regression model<a class="headerlink" href="#evaluating-the-performance-of-a-linear-regression-model" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Mean Squared Error (MSE): This metric quantifies the average of the squares of prediction errors, which are the differences between the actual and predicted values. The lower the MSE, the better the model performed.</p></li>
+<li><p>Root Mean Squared Error (RMSE): This metric is merely the square root of the MSE. It carries the same units as the output and is often preferred as it punishes larger errors more robustly.</p></li>
+<li><p>Mean Absolute Error (MAE): As the name implies, MAE measures the average of the absolute differences between our actual and predicted values. This metric is particularly helpful when we wish to know exactly how much our predictions deviate on average.</p></li>
+<li><p>R-squared: This coefficient of determination, known as R-squared, quantifies the proportion of the total variability or variance of the target variable that can be accounted for by our regression model. Higher R-squared values indicate smaller differences between observed and predicted response values.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">metrics</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># In our example, fitted is a numpy array that our linear regression model predicted for wine quality</span>
+<span class="n">fitted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.6</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">])</span> 
+
+<span class="c1"># While actual is a numpy array containing the real wine qualities</span>
+<span class="n">actual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">])</span> 
+
+<span class="c1"># For calculating MAE, pass the actual and predicted arrays to mean_absolute_error()</span>
+<span class="n">mae</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">fitted</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean Absolute Error (MAE): </span><span class="si">{</span><span class="n">mae</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Mean Absolute Error (MAE): 0.16666666666666666</span>
+
+<span class="c1"># For calculating MSE, use the mean_squared_error function</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">fitted</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean Squared Error (MSE): </span><span class="si">{</span><span class="n">mse</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Mean Squared Error (MSE): 0.029999999999999995</span>
+
+<span class="c1"># RMSE is calculated as the square root of MSE, using the np.sqrt() function</span>
+<span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Root Mean Squared Error (RMSE): </span><span class="si">{</span><span class="n">rmse</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Root Mean Squared Error (RMSE): 0.1732050807568877</span>
+
+<span class="c1"># For calculating the R-squared value, use the r2_score function</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">r2_score</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">fitted</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R-squared: </span><span class="si">{</span><span class="n">r2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># R-squared: 0.7857142857142857</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Absolute Error (MAE): 0.16666666666666666
+Mean Squared Error (MSE): 0.029999999999999995
+Root Mean Squared Error (RMSE): 0.1732050807568877
+R-squared: 0.7857142857142857
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="logistic-regression">
+<h1>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h1>
+<p>Our goal is to predict wine quality, which, as you may remember, ranges from 0 to 10. To keep things simple and focus on a <strong>binary classification problem</strong>, let’s classify the wines as good (a quality rating of 7 or above) and not good (a quality rating below 7). Therefore, we will be using Logistic Regression to predict whether the quality of a specific type of wine is ‘good’ or ‘not good’ based on its physicochemical features.</p>
+<p>In Logistic Regression, all of this is achieved by using a logistic function, which limits the unlimited outcome of the linear equation to a <strong>number between 0 and 1</strong> (representing probability). Also known as the <strong>Sigmoid function</strong>, this logistic function is an S-shaped curve that maps any real-valued number into a value falling within these bounds. The function is defined as follows,
+f(x)=$\frac{1}{1+e^{-x}}$​</p>
+<p>In this equation, x represents the output of a linear combination of feature values and their corresponding coefficients,
+x=$β_{0}+β_{1}X_{1}+β_{2}X_{2}+…+β_{n}X_{n}$</p>
+<p>Once we compute the predicted probability (p) using the Sigmoid function, we can assign classes by <strong>defining a threshold</strong> (which is generally 0.5):</p>
+<ul class="simple">
+<li><p>If p≥0.5, the label for the example is 1 (or Good in our case).</p></li>
+<li><p>If p&lt;0.5, the label for the example is 0 (or Not Good in our case).</p></li>
+</ul>
+<p>The next component in Logistic Regression is the <strong>cost function</strong>. In Logistic Regression, the cost function is defined as:</p>
+<img alt="Logistic Regression Cost Fn" src="Modeling/LogisticRegressionCostFn.png" />
+<p>While discussing the cost function, it’s crucial to consider optimization algorithms like <strong>Gradient Descent</strong> used to find the parameters θ to minimize this cost.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+
+<span class="c1"># Convert the multi-class problem to a binary one</span>
+<span class="n">red_wine</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">red_wine</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">7</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Split the dataset into features and target variable</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">red_wine</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;quality&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">red_wine</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span>
+
+<span class="c1"># Split the dataset into a training set and a test set</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Create a Logistic Regression object</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+
+<span class="c1"># Train the model using the training sets</span>
+<span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Print the learned parameters</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lr</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="n">lr</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-0.02428931 -3.25282455 -0.05460797  0.07645871 -1.27201513  0.02173631
+  -0.01862357 -1.0434218  -2.50361787  2.00691824  0.92563336]] [-1.7897334]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/amnagul/.pyenv/versions/3.13.5/envs/jupybook_env/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:473: ConvergenceWarning: lbfgs failed to converge after 100 iteration(s) (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=100).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make predictions on the test dataset</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Import metrics module for accuracy calculation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">metrics</span>
+
+<span class="c1"># Model accuracy</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy: &quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="c1"># Accuracy:  0.8875</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy:  0.8875
+</pre></div>
+</div>
+</div>
+</div>
+<section id="evaluating-the-performance-of-a-logistic-regression-model">
+<h2>Evaluating the performance of a Logistic Regression model<a class="headerlink" href="#evaluating-the-performance-of-a-logistic-regression-model" title="Link to this heading">#</a></h2>
+<p>Evaluating the performance of a model is crucial to assess its usability and reliability. We evaluate our Logistic Regression model’s performance using several important metrics. Let’s define a few key metrics:</p>
+<ol class="arabic simple">
+<li><p>Confusion Matrix: This table describes the performance of a classification model. It’s essentially a 2×22×2 matrix that visualizes the performance of the regression, representing actual and predicted classifications in terms of true positives, false positives, true negatives, and false negatives.</p></li>
+<li><p>Accuracy: This is the ratio of correctly predicted observations to total observations. Accuracy = (True Positives + True Negatives) / Total Observations.</p></li>
+<li><p>Precision: This is the ratio of correctly predicted positive observations to the total predicted positives. Precision = True Positives / (True Positives + False Positives).</p></li>
+<li><p>Recall (Sensitivity): This is the ratio of correctly predicted positive observations to all observations in the actual class. Recall = True Positives / (True Positives + False Negatives).</p></li>
+<li><p>F1 Score: This is the weighted average of Precision and recall. F1Score = 2 * Recall * Precision / (Recall + Precision).</p></li>
+<li><p>ROC-AUC : This is the area under the Receiver Operating Characteristic curve. It indicates how much the model can distinguish between classes.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">metrics</span>
+
+<span class="c1"># Model Accuracy</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy: &quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="c1"># Accuracy:  0.8875</span>
+
+<span class="c1"># Model Precision</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Precision: &quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">.</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="c1"># Precision:  0.5172413793103449</span>
+
+<span class="c1"># Model Recall</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Recall: &quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="c1"># Recall:  0.2727272727272727</span>
+
+<span class="c1"># Model F1-Score</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;F1 Score: &quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">.</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="c1"># F1 Score:  0.3571428571428571</span>
+
+<span class="c1"># Model AUC</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AUC: &quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">.</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="c1"># AUC:  0.6198930481283422</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy:  0.8875
+Precision:  0.5172413793103449
+Recall:  0.2727272727272727
+F1 Score:  0.35714285714285715
+AUC:  0.6198930481283422
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">metrics</span>
+
+<span class="c1"># Let y_test be a numpy array with the actual wine quality classes (&#39;good&#39; or &#39;not good&#39;) for the test dataset</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;not good&#39;</span><span class="p">,</span> <span class="s1">&#39;good&#39;</span><span class="p">,</span> <span class="s1">&#39;good&#39;</span><span class="p">,</span> <span class="s1">&#39;not good&#39;</span><span class="p">,</span> <span class="s1">&#39;good&#39;</span><span class="p">])</span>
+
+<span class="c1"># And let pred be a numpy array with the predicted classes by our model for the test dataset</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;not good&#39;</span><span class="p">,</span> <span class="s1">&#39;good&#39;</span><span class="p">,</span> <span class="s1">&#39;not good&#39;</span><span class="p">,</span> <span class="s1">&#39;good&#39;</span><span class="p">,</span> <span class="s1">&#39;good&#39;</span><span class="p">])</span>
+
+<span class="c1"># For calculating Accuracy</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># For calculating Precision, use the precision_score function</span>
+<span class="c1"># Note: It considers &#39;good&#39; as the positive class by default (this can be changed using the pos_label parameter)</span>
+<span class="n">precision</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s2">&quot;good&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Precision: </span><span class="si">{</span><span class="n">precision</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># For calculating Recall</span>
+<span class="n">recall</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s2">&quot;good&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recall: </span><span class="si">{</span><span class="n">recall</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># For calculating F1 Score</span>
+<span class="n">f1</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s2">&quot;good&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;F1 Score: </span><span class="si">{</span><span class="n">f1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># For computing AUC-ROC, we need the probabilities of the positive class (&#39;good&#39;), let&#39;s assume y_proba as an array of these probabilities </span>
+<span class="n">y_proba</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">])</span>
+<span class="n">auc_roc</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;AUC-ROC: </span><span class="si">{</span><span class="n">auc_roc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.6
+Precision: 0.6666666666666666
+Recall: 0.6666666666666666
+F1 Score: 0.6666666666666666
+AUC-ROC: 0.5
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="model-overfitting-and-underfitting">
+<h1>Model Overfitting and Underfitting<a class="headerlink" href="#model-overfitting-and-underfitting" title="Link to this heading">#</a></h1>
+<p>In machine learning, balance is crucial. If your model performs well on the training data but poorly on unseen data (such as validation and test datasets), it may be overfitting. This issue is similar to an attempt to ace a specific test by learning to copy all the answers without understanding the concepts, which leads to poor performance in other tests.</p>
+<p>Conversely, we have underfitting. An underfitted model performs poorly on both training and unseen data because it hasn’t learned the underlying pattern of the data.</p>
+<section id="advanced-unbiased-evaluation-techniques">
+<h2>Advanced/Unbiased Evaluation Techniques<a class="headerlink" href="#advanced-unbiased-evaluation-techniques" title="Link to this heading">#</a></h2>
+<p><strong>Cross-validation</strong> transcends the traditional train-test split strategy and ensures that our model evaluation is unbiased. It accomplishes this by partitioning the dataset into multiple ‘folds’. Each iteration holds out one fold as the test set and trains the model on the remaining folds, repeating this process for each fold. This technique guarantees that <strong>every data point gets to be part of the training and test sets, providing a more generalized and robust model evaluation method</strong>. In this snippet below, cv specifies the number of folds, so scores holds five scores as we’re performing 5-fold cross-validation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="c1"># clf represents an instance of a machine learning model you&#39;ve already constructed (e.g., clf = LinearRegression())</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Modeling"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Dataset</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-dataset">Load the dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eda">EDA</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent">Gradient Descent</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression">Linear Regression</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-the-performance-of-a-linear-regression-model">Evaluating the performance of a Linear Regression model</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic Regression</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-the-performance-of-a-logistic-regression-model">Evaluating the performance of a Logistic Regression model</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-overfitting-and-underfitting">Model Overfitting and Underfitting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-unbiased-evaluation-techniques">Advanced/Unbiased Evaluation Techniques</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Amna Gul
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
