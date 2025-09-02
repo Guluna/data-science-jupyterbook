@@ -1,0 +1,2360 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1- Descriptive Statistics &#8212; Data Science Core Concepts</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter 1- Descriptive Statistics';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 2- Data Cleaning and Preprocessing" href="Chapter%202-%20Data%20Cleaning%20and%20Preprocessing.html" />
+    <link rel="prev" title="Welcome to your journey in the world of Data Science" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Data Science Core Concepts - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Data Science Core Concepts - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your journey in the world of Data Science
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Chapter 1- Descriptive Statistics</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%202-%20Data%20Cleaning%20and%20Preprocessing.html">Chapter 2- Data Cleaning and Preprocessing</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%203-%20Advanced%20Preprocessing%20Techniques.html">Chapter 3- Advanced Preprocessing Techniques</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%204-%20Code%20Optimization.html">Chapter 4- Code Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chapter%205-%20Hypothesis%20Testing%20in%20Python.html">Chapter 5- Hypothesis Testing in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chapter%206-%20Supervised%20ML.html">Chapter 6- Supervised ML</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%207-%20Unsupervised%20ML.html">Chapter 7- Unsupervised ML</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Chapter%208-%20Data%20Visualization.html">Chapter 8- Data Visualization</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Guluna/TechInterviewPrep" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Guluna/TechInterviewPrep/issues/new?title=Issue%20on%20page%20%2FChapter 1- Descriptive Statistics.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Chapter 1- Descriptive Statistics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1- Descriptive Statistics</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chapter 1- Descriptive Statistics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arrays-properties-size-shape-type">Arrays Properties: size, shape, type</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data">Selecting data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-functions-to-numpy-arrays">Applying Functions to NumPy Arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-operations-in-numpy">Matrix Operations in Numpy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-inverse">Matrix Inverse</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-transpose">Matrix Transpose</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-2-matrices-horizontally-using-hstack">Combine 2 Matrices horizontally using hstack()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-normalization">Matrix Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dot-product-of-2-matrices">Dot Product of 2 Matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#intro-to-pandas">Intro to Pandas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-dataframe">Creating a Dataframe</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-parts">DataFrame Parts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-data-types">DataFrame Data Types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-characteristics-head-tail-shape-info-describe">DataFrame Characteristics (head, tail, shape, info, describe)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-rows">Adding rows</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-rows">Removing Rows</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-and-modifying-the-index-column">Setting and Modifying the Index Column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#locating-data">Locating Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loc-for-row-or-col-selection">loc[] for row or col selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iloc-for-row-or-col-selection">iloc[] for row or col selection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-lambda-fn-for-df-manipulation">Using Lambda fn for df Manipulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-filtering">Data Filtering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sorting">Data Sorting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-datetime-functions">Pandas Datetime Functions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptive-and-inferential-statistics">Descriptive and Inferential Statistics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-distribution-of-categorical-data">Understanding Distribution of Categorical Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#centrality-measures-mean-median-mode-in-numpy">Centrality Measures (Mean, Median, Mode) in Numpy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-ties-in-mode">Handling ties in mode</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#centrality-measures-mean-median-mode-in-pandas">Centrality Measures (Mean, Median, Mode) in Pandas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dispersion-measures-range-var-std-dev">Dispersion Measures (Range, Var, Std Dev)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-deviation-in-pandas-via-np-std">Standard Deviation in Pandas via np.std()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantiles-and-iqr-numpy">Quantiles and IQR (Numpy)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantiles-pandas">Quantiles (Pandas)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-distribution-functions-in-scipy">Accessing Distribution Functions in Scipy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#skewness-vs-kurtosis">Skewness vs Kurtosis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skewness">Skewness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kurtosis">Kurtosis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uniform-and-normal-distribution">Uniform and Normal Distribution</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#random-quote">Random Quote</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="chapter-1-descriptive-statistics">
+<h1>Chapter 1- Descriptive Statistics<a class="headerlink" href="#chapter-1-descriptive-statistics" title="Link to this heading">#</a></h1>
+<p>‘Numerical Python’ library specializes in efficient computations on arrays. Arrays in NumPy are more efficient than typical Python data structures.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Creating a one-dimensional (1D) numpy array</span>
+<span class="n">array_1d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">array_1d</span><span class="p">)</span>  <span class="c1"># prints: [1 2 3 4 5]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1 2 3 4 5]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Two-dimensional (2D) numpy array</span>
+<span class="n">array_2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">array_2d</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 2 3]
+ [4 5 6]]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="arrays-properties-size-shape-type">
+<h2>Arrays Properties: size, shape, type<a class="headerlink" href="#arrays-properties-size-shape-type" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Three-dimensional (3D) numpy array</span>
+<span class="n">array_3d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">]]])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">array_3d</span><span class="p">)</span>
+
+<span class="c1"># size indicates the total number of elements in the array. </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">array_3d</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[[ 1  2  3]
+  [ 4  5  6]]
+
+ [[ 7  8  9]
+  [10 11 12]]]
+12
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># shape, which gives us the array&#39;s dimensions</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape:&quot;</span><span class="p">,</span> <span class="n">array_3d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Shape: (2, 2, 3)</span>
+
+<span class="c1"># In the example above, the shape (2, 2, 3) is a tuple of three values, which indicates that our array is 3D and contains two arrays, each of which includes two more arrays, each of which holds three elements.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape: (2, 2, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dtype, which stands for the data type tells about type of elements stored in the array, whether they&#39;re integers, floats, strings, etc.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data type:&quot;</span><span class="p">,</span> <span class="n">array_3d</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>  <span class="c1"># Data type: int64</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data type: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="selecting-data">
+<h2>Selecting data<a class="headerlink" href="#selecting-data" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>via integer and Boolean indexing and slicing</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="c1"># integer indexing</span>
+
+<span class="c1"># Form a 2D array and get the element at row 2 (indexed 1) and column 1 (indexed 0)</span>
+<span class="n">array_2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>
+<span class="n">element</span> <span class="o">=</span> <span class="n">array_2d</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Selected element: 4</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Boolean indexing which functions like a &#39;Yes/No&#39; filter to filter data based on custom conditions</span>
+
+<span class="c1"># A boolean index for even numbers</span>
+<span class="n">array_1d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>
+<span class="n">even_index</span> <span class="o">=</span> <span class="n">array_1d</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="n">even_numbers</span> <span class="o">=</span> <span class="n">array_1d</span><span class="p">[</span><span class="n">even_index</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">even_numbers</span><span class="p">)</span>  <span class="c1"># Output: [8 4 4]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[8 4 4]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Multiple conditions for more specific filtering: A combined boolean index for even numbers &gt; 5. </span>
+<span class="c1"># - &quot;and&quot; operator won&#39;t work here</span>
+<span class="n">array_1d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>
+<span class="n">even_numbers_greater_than_five</span> <span class="o">=</span> <span class="n">array_1d</span><span class="p">[(</span><span class="n">array_1d</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">array_1d</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">even_numbers_greater_than_five</span><span class="p">)</span>  <span class="c1"># Output: [8]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[8]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Slicing: syntax is start:stop:step</span>
+
+<span class="c1"># Select elements at odd indices 1, 3, 5, ...</span>
+<span class="n">array_1d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="n">every_second</span> <span class="o">=</span> <span class="n">array_1d</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">every_second</span><span class="p">)</span>  <span class="c1"># Output: [2 4 6]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[2 4 6]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="applying-functions-to-numpy-arrays">
+<h2>Applying Functions to NumPy Arrays<a class="headerlink" href="#applying-functions-to-numpy-arrays" title="Link to this heading">#</a></h2>
+<p>Two arrays of the same shape can undergo basic arithmetic operations. The operations are performed element-wise.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">subject1_grades</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">88</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">85</span><span class="p">])</span>
+<span class="n">subject2_grades</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">92</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">88</span><span class="p">])</span>
+
+<span class="n">total_grades</span> <span class="o">=</span> <span class="n">subject1_grades</span> <span class="o">+</span> <span class="n">subject2_grades</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total grades:&quot;</span><span class="p">,</span> <span class="n">total_grades</span><span class="p">)</span>  <span class="c1"># Output: Total grades: [180 175 153 182 173]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total grades: [180 175 153 182 173]
+</pre></div>
+</div>
+</div>
+</div>
+<p>NumPy’s Universal Functions e.g. sin, cos, log, and sqrt (also called ufuncs) perform element-wise operations on arrays.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">angles_degrees</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span>
+<span class="n">angles_radians</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">angles_degrees</span><span class="p">)</span>
+<span class="n">sin_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angles_radians</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sine of angles:&quot;</span><span class="p">,</span> <span class="n">sin_values</span><span class="p">)</span>  <span class="c1"># Output: Sine of angles: [0. 0.5 0.70710678 0.8660254 1.]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sine of angles: [0.         0.5        0.70710678 0.8660254  1.        ]
+</pre></div>
+</div>
+</div>
+</div>
+<p>NumPy allows the application of a custom function to each element of the array separately via np.vectorize.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">is_even</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
+
+<span class="n">vectorized_is_even</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">is_even</span><span class="p">)</span>
+
+<span class="n">numbers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">vectorized_is_even</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Results:&quot;</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>  <span class="c1"># Output: Results: [False True False True False]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Results: [False  True False  True False]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="matrix-operations-in-numpy">
+<h2>Matrix Operations in Numpy<a class="headerlink" href="#matrix-operations-in-numpy" title="Link to this heading">#</a></h2>
+<p>A matrix from a mathematical perspective, is a 2-dimensional array that contains numbers. But why are matrices so fundamentally important in data science and machine learning? Consider an image. For humans, it’s a visual depiction of an object or a scene. However, the image is an array of pixel values to a computer, making it a matrix. For tasks like image recognition, these matrices undergo processing and analysis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># create a matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="c1"># perform some basic operations on matrices</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">B</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 2 3]
+ [4 5 6]
+ [7 8 9]]
+[[10 10 10]
+ [10 10 10]
+ [10 10 10]]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="matrix-inverse">
+<h3>Matrix Inverse<a class="headerlink" href="#matrix-inverse" title="Link to this heading">#</a></h3>
+<p>Matrix division isn’t as straightforward. Instead, we use the concept of a matrix inverse. The inverse of a matrix A is defined as a matrix that, when multiplied with A, yields the identity matrix. The identity matrix in the world of matrices is equivalent to the number 1, and any matrix multiplied by the identity matrix returns the original matrix.</p>
+<p>In Numpy, we use the np.linalg.inv() function to find the inverse of a matrix. However, one caveat to keep in mind: Not all matrices have an inverse. Matrices that lack an inverse are known as singular or degenerate matrices.</p>
+<p>To resolve the issue with singular and degenerate matrices, there is an np.linalg.pinv() function that is used to compute the (Moore-Penrose) pseudoinverse of a matrix. If the original matrix is singular or non-square, np.linalg.inv(a) will result in an error, whereas np.linalg.pinv(a) will still return a result. This pseudoinverse is a generalization of the inverse concept, providing some sort of ‘best guess’ at an inverse even when one doesn’t officially exist.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">E</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">B</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+
+<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>  <span class="c1"># Finding the inverse of matrix E</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+
+<span class="c1"># np.linalg.inv(A) doesn&#39;t exist, it will throw an exception</span>
+<span class="n">FP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>  <span class="c1"># Finding the pseudo-inverse matrix of A</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">FP</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 9 16 21]
+ [24 25 24]
+ [21 16  9]]
+[[-0.73611111  0.88888889 -0.65277778]
+ [ 1.33333333 -1.66666667  1.33333333]
+ [-0.65277778  0.88888889 -0.73611111]]
+[[-6.38888889e-01 -1.66666667e-01  3.05555556e-01]
+ [-5.55555556e-02  1.56080621e-16  5.55555556e-02]
+ [ 5.27777778e-01  1.66666667e-01 -1.94444444e-01]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="matrix-transpose">
+<h3>Matrix Transpose<a class="headerlink" href="#matrix-transpose" title="Link to this heading">#</a></h3>
+<p>If you have ever rotated an image on your phone or computer, you used the concept of a transpose. In matrix terminology, transposing a matrix involves flipping the matrix over its diagonal, which reverses its row and column indices.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+
+<span class="n">H</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 4 7]
+ [2 5 8]
+ [3 6 9]]
+[[1 4 7]
+ [2 5 8]
+ [3 6 9]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="combine-2-matrices-horizontally-using-hstack">
+<h3>Combine 2 Matrices horizontally using hstack()<a class="headerlink" href="#combine-2-matrices-horizontally-using-hstack" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assuming these are two features from our dataset</span>
+<span class="n">feature_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">123</span><span class="p">],</span> <span class="p">[</span><span class="mi">456</span><span class="p">],</span> <span class="p">[</span><span class="mi">789</span><span class="p">]])</span>
+<span class="n">feature_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">321</span><span class="p">],</span> <span class="p">[</span><span class="mi">654</span><span class="p">],</span> <span class="p">[</span><span class="mi">987</span><span class="p">]])</span>
+
+<span class="c1"># Combine the two features into one matrix</span>
+<span class="n">data_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">feature_1</span><span class="p">,</span> <span class="n">feature_2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data_features</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[123 321]
+ [456 654]
+ [789 987]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="matrix-normalization">
+<h3>Matrix Normalization<a class="headerlink" href="#matrix-normalization" title="Link to this heading">#</a></h3>
+<p>Let’s normalize our data so that all feature values fall within a specific range. For a vector, the norm is its distance from the origin e.g. for a vector np.array([3, 4]), its norm would be 5 i.e. hypotenuse. For a matrix, it represents the “size” or “magnitude” of the matrix and provides a measure of its overall influence. It is always a single, non-negative number.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculating L2 norm. this normalization puts all values within a [0, 1] range</span>
+<span class="n">normalized_data_features</span> <span class="o">=</span> <span class="n">data_features</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">data_features</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">normalized_data_features</span><span class="p">)</span>
+
+<span class="c1"># Min-Max Normalization that makes sure the output always contains both 0 and 1</span>
+<span class="n">normalized_data_features_minmax</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_features</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data_features</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data_features</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data_features</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">normalized_data_features_minmax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.08022761 0.2093745 ]
+ [0.2974292  0.42657609]
+ [0.51463079 0.64377768]]
+[[0.         0.22916667]
+ [0.38541667 0.61458333]
+ [0.77083333 1.        ]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dot-product-of-2-matrices">
+<h3>Dot Product of 2 Matrices<a class="headerlink" href="#dot-product-of-2-matrices" title="Link to this heading">#</a></h3>
+<p>For a dot product to happen, # of colums in first matrix should match the # of rows in second matrix. The shape of the resulting matrix after dot product will be equal to # of rows in the first matrix and # of columns in the second matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simulate the weights of features</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">])</span>
+
+<span class="c1"># Calculate the weighted sum of features</span>
+<span class="n">weighted_sum_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">data_features</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">weighted_sum_features</span><span class="p">)</span>
+<span class="c1"># Output: [241.8 574.8 907.8]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[241.8 574.8 907.8]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="intro-to-pandas">
+<h1>Intro to Pandas<a class="headerlink" href="#intro-to-pandas" title="Link to this heading">#</a></h1>
+<p>The pandas library is Python’s solution for tabular data operations.</p>
+<ul class="simple">
+<li><p>has two fundamental data structures: the Series (1D) and the DataFrame (2D)</p></li>
+</ul>
+<section id="creating-a-dataframe">
+<h2>Creating a Dataframe<a class="headerlink" href="#creating-a-dataframe" title="Link to this heading">#</a></h2>
+<p>It can be created from a dictionary, list, or NumPy array.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># creating a dataframe using a dictionary</span>
+<span class="n">student_data</span> <span class="o">=</span> <span class="p">{</span>  
+    <span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Sara&#39;</span><span class="p">,</span> <span class="s1">&#39;Ray&#39;</span><span class="p">,</span> <span class="s1">&#39;John&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Age&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">student_data</span><span class="p">)</span>
+
+<span class="c1"># add a column to a df just like with dictionary, simply refer to a new key and assign an array to it</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Grade&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Name  Age  Grade
+0  Sara   15      9
+1   Ray   16     10
+2  John   17      7
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dataframe-parts">
+<h2>DataFrame Parts<a class="headerlink" href="#dataframe-parts" title="Link to this heading">#</a></h2>
+<p>A DataFrame consists of three components: data, index, and columns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>  <span class="c1"># Output: RangeIndex(start=0, stop=3, step=1)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>  <span class="c1"># Output: Index([&#39;Name&#39;, &#39;Age&#39;, &#39;Grade&#39;], dtype=&#39;object&#39;) </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RangeIndex(start=0, stop=3, step=1)
+Index([&#39;Name&#39;, &#39;Age&#39;, &#39;Grade&#39;], dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dataframe-data-types">
+<h2>DataFrame Data Types<a class="headerlink" href="#dataframe-data-types" title="Link to this heading">#</a></h2>
+<p>The strength of a DataFrame (when contrasted with NumPy) lies in its ability to accommodate multiple data types. Using the DataFrame.dtypes property, we can ascertain the data type of each column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name     object
+Age       int64
+Grade     int64
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dataframe-characteristics-head-tail-shape-info-describe">
+<h2>DataFrame Characteristics (head, tail, shape, info, describe)<a class="headerlink" href="#dataframe-characteristics-head-tail-shape-info-describe" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Name  Age  Grade
+0  Sara   15      9
+1   Ray   16     10
+2  John   17      7
+   Name  Age  Grade
+0  Sara   15      9
+1   Ray   16     10
+2  John   17      7
+(3, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># concise summary, including the number of non-null entries for each column.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+
+<span class="c1"># statistics table for the dataframe&#39;s numerical columns</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="c1"># statistics table for the dataframe&#39;s numerical+categorical columns</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 3 entries, 0 to 2
+Data columns (total 3 columns):
+ #   Column  Non-Null Count  Dtype 
+---  ------  --------------  ----- 
+ 0   Name    3 non-null      object
+ 1   Age     3 non-null      int64 
+ 2   Grade   3 non-null      int64 
+dtypes: int64(2), object(1)
+memory usage: 204.0+ bytes
+None
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        Age      Grade
+count   3.0   3.000000
+mean   16.0   8.666667
+std     1.0   1.527525
+min    15.0   7.000000
+25%    15.5   8.000000
+50%    16.0   9.000000
+75%    16.5   9.500000
+max    17.0  10.000000
+        Name   Age      Grade
+count      3   3.0   3.000000
+unique     3   NaN        NaN
+top     Sara   NaN        NaN
+freq       1   NaN        NaN
+mean     NaN  16.0   8.666667
+std      NaN   1.0   1.527525
+min      NaN  15.0   7.000000
+25%      NaN  15.5   8.000000
+50%      NaN  16.0   9.000000
+75%      NaN  16.5   9.500000
+max      NaN  17.0  10.000000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adding-rows">
+<h2>Adding rows<a class="headerlink" href="#adding-rows" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Grocery Item&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Apples&#39;</span><span class="p">,</span> <span class="s1">&#39;Oranges&#39;</span><span class="p">,</span> <span class="s1">&#39;Bananas&#39;</span><span class="p">,</span> <span class="s1">&#39;Grapes&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Price per kg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.25</span><span class="p">,</span> <span class="mf">4.50</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">,</span> <span class="mf">5.00</span><span class="p">]}</span>
+
+<span class="n">grocery_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">new_row</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Grocery Item&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Pears&#39;</span><span class="p">],</span> <span class="s1">&#39;Price per kg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">4.00</span><span class="p">]})</span>
+<span class="n">grocery_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">grocery_df</span><span class="p">,</span> <span class="n">new_row</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">grocery_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Grocery Item</th>
+      <th>Price per kg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Apples</td>
+      <td>3.25</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Oranges</td>
+      <td>4.50</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Bananas</td>
+      <td>2.75</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Grapes</td>
+      <td>5.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Pears</td>
+      <td>4.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adding Multiple Rows to a DataFrame</span>
+<span class="n">new_rows</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Grocery Item&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Avocados&#39;</span><span class="p">,</span> <span class="s1">&#39;Blueberries&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Price per kg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">]})</span>
+
+<span class="n">grocery_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">grocery_df</span><span class="p">,</span> <span class="n">new_rows</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">grocery_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Grocery Item</th>
+      <th>Price per kg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Apples</td>
+      <td>3.25</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Oranges</td>
+      <td>4.50</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Bananas</td>
+      <td>2.75</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Grapes</td>
+      <td>5.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Pears</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Avocados</td>
+      <td>2.50</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Blueberries</td>
+      <td>10.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="removing-rows">
+<h2>Removing Rows<a class="headerlink" href="#removing-rows" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">index_to_delete</span> <span class="o">=</span> <span class="n">grocery_df</span><span class="p">[</span><span class="n">grocery_df</span><span class="p">[</span><span class="s1">&#39;Grocery Item&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Grapes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+
+<span class="n">grocery_df</span> <span class="o">=</span> <span class="n">grocery_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index_to_delete</span><span class="p">)</span>
+
+<span class="n">grocery_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Grocery Item</th>
+      <th>Price per kg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Apples</td>
+      <td>3.25</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Oranges</td>
+      <td>4.50</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Bananas</td>
+      <td>2.75</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Pears</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Avocados</td>
+      <td>2.50</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Blueberries</td>
+      <td>10.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># removing multiple rows</span>
+<span class="n">indices_to_delete</span> <span class="o">=</span> <span class="n">grocery_df</span><span class="p">[</span><span class="n">grocery_df</span><span class="p">[</span><span class="s1">&#39;Grocery Item&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Apples&#39;</span><span class="p">,</span> <span class="s1">&#39;Oranges&#39;</span><span class="p">])]</span><span class="o">.</span><span class="n">index</span>
+
+<span class="n">grocery_df</span> <span class="o">=</span> <span class="n">grocery_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">indices_to_delete</span><span class="p">)</span>
+
+<span class="n">grocery_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Grocery Item</th>
+      <th>Price per kg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>Bananas</td>
+      <td>2.75</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Pears</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Avocados</td>
+      <td>2.50</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Blueberries</td>
+      <td>10.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="setting-and-modifying-the-index-column">
+<h2>Setting and Modifying the Index Column<a class="headerlink" href="#setting-and-modifying-the-index-column" title="Link to this heading">#</a></h2>
+<p>When a DataFrame is created, Pandas establishes a default index. Occasionally, we might need to establish a custom index. The Pandas’ set_index() function allows us to set a custom index. To reset the index to its default state, we use reset_index().</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;John&quot;</span><span class="p">,</span> <span class="s2">&quot;Anna&quot;</span><span class="p">,</span> <span class="s2">&quot;Peter&quot;</span><span class="p">,</span> <span class="s2">&quot;Linda&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;Age&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">32</span><span class="p">],</span>
+    <span class="s2">&quot;City&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;New York&quot;</span><span class="p">,</span> <span class="s2">&quot;Paris&quot;</span><span class="p">,</span> <span class="s2">&quot;Berlin&quot;</span><span class="p">,</span> <span class="s2">&quot;London&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># df with default index</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">104</span><span class="p">]</span>    <span class="c1"># Adding unique IDs</span>
+
+<span class="c1"># creating a custom index</span>
+<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># Setting &#39;ID&#39; as index</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="c1"># reset index to its original state</span>
+<span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>       <span class="c1"># Resetting index</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Name  Age      City
+0   John   28  New York
+1   Anna   24     Paris
+2  Peter   35    Berlin
+3  Linda   32    London
+      Name  Age      City
+ID                       
+101   John   28  New York
+102   Anna   24     Paris
+103  Peter   35    Berlin
+104  Linda   32    London
+    ID   Name  Age      City
+0  101   John   28  New York
+1  102   Anna   24     Paris
+2  103  Peter   35    Berlin
+3  104  Linda   32    London
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="locating-data">
+<h2>Locating Data<a class="headerlink" href="#locating-data" title="Link to this heading">#</a></h2>
+<section id="loc-for-row-or-col-selection">
+<h3>loc[] for row or col selection<a class="headerlink" href="#loc-for-row-or-col-selection" title="Link to this heading">#</a></h3>
+<p>Used with custom indices for rows and columns usually. For selection by default index position of rows and columns, use iloc.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># selecting single row with loc</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># selecting multiple rows with loc</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ID        102
+Name     Anna
+Age        24
+City    Paris
+Name: 1, dtype: object
+
+     ID   Name  Age    City
+1  102   Anna   24   Paris
+2  103  Peter   35  Berlin
+3  104  Linda   32  London
+
+     ID   Name  Age    City
+1  102   Anna   24   Paris
+3  104  Linda   32  London
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using loc for column selection</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Name  Age
+1   Anna   24
+3  Linda   32
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="iloc-for-row-or-col-selection">
+<h3>iloc[] for row or col selection<a class="headerlink" href="#iloc-for-row-or-col-selection" title="Link to this heading">#</a></h3>
+<p>The iloc indexer is like Python list slicing. This accepts integer inputs and slice notation. The general syntax is df.iloc[row_selection, column_selection]</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="c1"># select row at index position 3</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># slicing multiple rows</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># select element at row 3 and col 1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># slicing rows and columns by their index positions</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span> <span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">3</span> <span class="p">])</span>
+
+<span class="c1"># individual selection of rows and columns by their index positions</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    ID   Name  Age      City
+0  101   John   28  New York
+1  102   Anna   24     Paris
+2  103  Peter   35    Berlin
+3  104  Linda   32    London
+
+ ID         104
+Name     Linda
+Age         32
+City    London
+Name: 3, dtype: object
+
+     ID   Name  Age    City
+1  102   Anna   24   Paris
+2  103  Peter   35  Berlin
+
+ Linda
+
+     Name  Age
+1   Anna   24
+2  Peter   35
+
+     Name    City
+1   Anna   Paris
+3  Linda  London
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">people</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Mike&quot;</span><span class="p">,</span> <span class="s2">&quot;Emily&quot;</span><span class="p">,</span> <span class="s2">&quot;Nick&quot;</span><span class="p">,</span> <span class="s2">&quot;Chloe&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;Age&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">22</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">26</span><span class="p">],</span>
+    <span class="s2">&quot;City&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Toronto&quot;</span><span class="p">,</span> <span class="s2">&quot;Vancouver&quot;</span><span class="p">,</span> <span class="s2">&quot;Ottawa&quot;</span><span class="p">,</span> <span class="s2">&quot;Montreal&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">people</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="using-lambda-fn-for-df-manipulation">
+<h2>Using Lambda fn for df Manipulation<a class="headerlink" href="#using-lambda-fn-for-df-manipulation" title="Link to this heading">#</a></h2>
+<p>The apply() function in Pandas is a versatile tool to manipulate DataFrame values. It allows us to apply a function (either a Python built-in function or a custom function) along the DataFrame’s axes (either row-wise or column-wise).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;John&quot;</span><span class="p">,</span> <span class="s2">&quot;Anna&quot;</span><span class="p">,</span> <span class="s2">&quot;Peter&quot;</span><span class="p">],</span>
+             <span class="s2">&quot;Age&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">33</span><span class="p">],</span>
+             <span class="s2">&quot;City&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;New York&quot;</span><span class="p">,</span> <span class="s2">&quot;Los Angeles&quot;</span><span class="p">,</span> <span class="s2">&quot;Berlin&quot;</span><span class="p">]}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Name  Age         City
+0   John   28     New York
+1   Anna   24  Los Angeles
+2  Peter   33       Berlin
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">isYouthful</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">age</span><span class="p">:</span> <span class="s2">&quot;Yes&quot;</span> <span class="k">if</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">30</span> <span class="k">else</span> <span class="s2">&quot;No&quot;</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;IsYouthful&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">isYouthful</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Name  Age         City IsYouthful
+0   John   28     New York        Yes
+1   Anna   24  Los Angeles        Yes
+2  Peter   33       Berlin         No
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-filtering">
+<h2>Data Filtering<a class="headerlink" href="#data-filtering" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Load dataset</span>
+<span class="n">titanic_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;titanic&#39;</span><span class="p">)</span>
+
+<span class="c1"># Filter female passengers who survived</span>
+<span class="n">female_survivors</span> <span class="o">=</span> <span class="n">titanic_df</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;survived&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;female&#39;</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">female_survivors</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   survived  pclass     sex   age  sibsp  parch     fare embarked   class  \
+1         1       1  female  38.0      1      0  71.2833        C   First   
+2         1       3  female  26.0      0      0   7.9250        S   Third   
+3         1       1  female  35.0      1      0  53.1000        S   First   
+8         1       3  female  27.0      0      2  11.1333        S   Third   
+9         1       2  female  14.0      1      0  30.0708        C  Second   
+
+     who  adult_male deck  embark_town alive  alone  
+1  woman       False    C    Cherbourg   yes  False  
+2  woman       False  NaN  Southampton   yes   True  
+3  woman       False    C  Southampton   yes  False  
+8  woman       False  NaN  Southampton   yes  False  
+9  child       False  NaN    Cherbourg   yes  False  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-sorting">
+<h2>Data Sorting<a class="headerlink" href="#data-sorting" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sort survivors by class and age</span>
+<span class="n">sorted_df</span> <span class="o">=</span> <span class="n">female_survivors</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sorted_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     survived  pclass     sex   age  sibsp  parch     fare embarked  class  \
+469         1       3  female  0.75      2      1  19.2583        C  Third   
+644         1       3  female  0.75      2      1  19.2583        C  Third   
+172         1       3  female  1.00      1      1  11.1333        S  Third   
+381         1       3  female  1.00      0      2  15.7417        C  Third   
+479         1       3  female  2.00      0      1  12.2875        S  Third   
+
+       who  adult_male deck  embark_town alive  alone  
+469  child       False  NaN    Cherbourg   yes  False  
+644  child       False  NaN    Cherbourg   yes  False  
+172  child       False  NaN  Southampton   yes  False  
+381  child       False  NaN    Cherbourg   yes  False  
+479  child       False  NaN  Southampton   yes  False  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pandas-datetime-functions">
+<h2>Pandas Datetime Functions<a class="headerlink" href="#pandas-datetime-functions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>pd.date_range(‘07/01/2020’, periods=4) creates 4 datetime values ranging from 2020-07-01 to 2020-07-04</p></li>
+<li><p>pd.to_datetime(‘07/03/2020’) converts a string to datetime object</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Creating a data set simulating bioinformatics data</span>
+<span class="n">data_bio</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Gene&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Gene M&quot;</span><span class="p">,</span> <span class="s2">&quot;Gene N&quot;</span><span class="p">,</span> <span class="s2">&quot;Gene O&quot;</span><span class="p">,</span> <span class="s2">&quot;Gene P&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;Sequence&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;TGCCGTA&quot;</span><span class="p">,</span> <span class="s2">&quot;AATGCGT&quot;</span><span class="p">,</span> <span class="s2">&quot;CGTACGT&quot;</span><span class="p">,</span> <span class="s2">&quot;GGCTATG&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="n">df_bio</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_bio</span><span class="p">)</span>
+
+<span class="c1"># Reverse the DNA Sequence</span>
+<span class="n">df_bio</span><span class="p">[</span><span class="s1">&#39;Reverse_Sequence&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_bio</span><span class="p">[</span><span class="s1">&#39;Sequence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Creating a data set simulating astronomical star data</span>
+<span class="n">data_astro</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Star_ID&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="s2">&quot;Right_Ascension&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">210.50</span><span class="p">,</span> <span class="mf">68.80</span><span class="p">,</span> <span class="mf">310.70</span><span class="p">,</span> <span class="mf">48.1</span><span class="p">],</span>
+    <span class="s2">&quot;Declination&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">32.85</span><span class="p">,</span> <span class="mf">40.08</span><span class="p">,</span> <span class="o">-</span><span class="mf">16.82</span><span class="p">,</span> <span class="mf">8.90</span><span class="p">],</span>
+    <span class="s2">&quot;Observation_Date&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;07/01/2020&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">df_astro</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_astro</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_astro</span><span class="p">)</span>
+
+<span class="c1"># Filtering out stars observed after a specific date</span>
+<span class="n">filter_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;07/03/2020&#39;</span><span class="p">)</span>
+<span class="n">df_astro_filtered</span> <span class="o">=</span> <span class="n">df_astro</span><span class="p">[</span><span class="n">df_astro</span><span class="p">[</span><span class="s1">&#39;Observation_Date&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">filter_date</span><span class="p">]</span>
+
+<span class="c1"># Display the DataFrames</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_bio</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">df_astro_filtered</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Star_ID  Right_Ascension  Declination Observation_Date
+0        1            210.5       -32.85       2020-07-01
+1        2             68.8        40.08       2020-07-02
+2        3            310.7       -16.82       2020-07-03
+3        4             48.1         8.90       2020-07-04
+     Gene Sequence Reverse_Sequence
+0  Gene M  TGCCGTA          ATGCCGT
+1  Gene N  AATGCGT          TGCGTAA
+2  Gene O  CGTACGT          TGCATGC
+3  Gene P  GGCTATG          GTATCGG
+
+    Star_ID  Right_Ascension  Declination Observation_Date
+3        4             48.1          8.9       2020-07-04
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="descriptive-and-inferential-statistics">
+<h1>Descriptive and Inferential Statistics<a class="headerlink" href="#descriptive-and-inferential-statistics" title="Link to this heading">#</a></h1>
+<section id="understanding-distribution-of-categorical-data">
+<h2>Understanding Distribution of Categorical Data<a class="headerlink" href="#understanding-distribution-of-categorical-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">titanic_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;titanic&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">titanic_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   survived  pclass     sex   age  sibsp  parch     fare embarked  class  \
+0         0       3    male  22.0      1      0   7.2500        S  Third   
+1         1       1  female  38.0      1      0  71.2833        C  First   
+2         1       3  female  26.0      0      0   7.9250        S  Third   
+3         1       1  female  35.0      1      0  53.1000        S  First   
+4         0       3    male  35.0      0      0   8.0500        S  Third   
+
+     who  adult_male deck  embark_town alive  alone  
+0    man        True  NaN  Southampton    no  False  
+1  woman       False    C    Cherbourg   yes  False  
+2  woman       False  NaN  Southampton   yes   True  
+3  woman       False    C  Southampton   yes  False  
+4    man        True  NaN  Southampton    no   True  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sex
+male      577
+female    314
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print the count of unique entries in &#39;embarked&#39; column</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span> <span class="c1"># Output: 3</span>
+
+<span class="c1"># Print the unique entries in &#39;embarked&#39; column</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span> <span class="c1"># Output: [&#39;S&#39; &#39;C&#39; &#39;Q&#39; nan]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+[&#39;S&#39; &#39;C&#39; &#39;Q&#39; nan]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="centrality-measures-mean-median-mode-in-numpy">
+<h2>Centrality Measures (Mean, Median, Mode) in Numpy<a class="headerlink" href="#centrality-measures-mean-median-mode-in-numpy" title="Link to this heading">#</a></h2>
+<p>All three above can be used with numerical data but only mode makes sense for categorical data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">23</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">23</span><span class="p">])</span>
+<span class="c1"># calculates the average value of the data</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean: &quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># Mean:  22.82</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean:  22.82
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gets &#39;middle&#39; value in an ordered dataset</span>
+<span class="n">median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Median: &quot;</span><span class="p">,</span> <span class="n">median</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Median:  23.0
+</pre></div>
+</div>
+</div>
+</div>
+<section id="handling-ties-in-mode">
+<h3>Handling ties in mode<a class="headerlink" href="#handling-ties-in-mode" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">23</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">23</span><span class="p">])</span>
+<span class="c1"># calculates the most frequently occuring value in data</span>
+<span class="n">mode_age</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mode: &quot;</span><span class="p">,</span> <span class="n">mode_age</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>  <span class="c1"># Mode:  23</span>
+
+<span class="c1"># in case of tie, scipy&#39;s mode returns the smallest value among the tied modes (in example below both 21 and 23 are modes)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">24</span><span class="p">])</span>
+<span class="n">mode_age</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mode: &quot;</span><span class="p">,</span> <span class="n">mode_age</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>  <span class="c1"># Mode: 21</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mode:  23
+Mode:  21
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="centrality-measures-mean-median-mode-in-pandas">
+<h2>Centrality Measures (Mean, Median, Mode) in Pandas<a class="headerlink" href="#centrality-measures-mean-median-mode-in-pandas" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="c1"># Load Titanic dataset</span>
+<span class="n">titanic_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;titanic&#39;</span><span class="p">)</span>
+
+<span class="n">mean_age</span> <span class="o">=</span> <span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">median_age</span> <span class="o">=</span> <span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">mode_age</span> <span class="o">=</span> <span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean age: </span><span class="si">{</span><span class="n">mean_age</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># Mean age: 29.69911764705882</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Median age: </span><span class="si">{</span><span class="n">median_age</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># Median age: 28.0</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mode age: </span><span class="si">{</span><span class="n">mode_age</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># Mode age: 24.0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean age: 29.69911764705882
+Median age: 28.0
+Mode age: 24.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dispersion-measures-range-var-std-dev">
+<h2>Dispersion Measures (Range, Var, Std Dev)<a class="headerlink" href="#dispersion-measures-range-var-std-dev" title="Link to this heading">#</a></h2>
+<p>In a nutshell these measures tell us how close or far (on average) the values are from the mean.</p>
+<img alt="Different Standard Deviations" src="_images/diff_std_dev.png" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Test scores of five students</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">72</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">85</span><span class="p">])</span>
+
+<span class="c1"># Calculate and print the Range via peak to peak fn</span>
+<span class="n">range_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Range of scores: </span><span class="si">{</span><span class="n">range_scores</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Range of scores: 24</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Range of scores: 24
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate and print the Variance</span>
+<span class="n">variance_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Variance of scores: </span><span class="si">{</span><span class="n">variance_scores</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Variance of scores: 64.16</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variance of scores: 64.16
+</pre></div>
+</div>
+</div>
+</div>
+<p>Why use standard deviation when we already have variance. Standard deviation is expressed in the same units as the data, making it easier to interpret. Additionally, standard deviation is frequently used in statistical analysis because in normal distribution, data within one standard deviation of the mean account for approximately 68% of the set, while within two standard deviations cover around 95%.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate and print the Standard Deviation</span>
+<span class="n">std_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Standard deviation of scores: </span><span class="si">{</span><span class="n">std_scores</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Standard deviation of scores: 8.01</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Square root of variance of scores: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">variance_scores</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Standard deviation of scores: 8.009993757800315
+Square root of variance of scores: 8.009993757800315
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="standard-deviation-in-pandas-via-np-std">
+<h2>Standard Deviation in Pandas via np.std()<a class="headerlink" href="#standard-deviation-in-pandas-via-np-std" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="c1"># Load Titanic dataset</span>
+<span class="n">titanic_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;titanic&#39;</span><span class="p">)</span>
+<span class="c1"># Standard deviation</span>
+<span class="n">std_dev_age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Standard deviation of age: </span><span class="si">{</span><span class="n">std_dev_age</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># Standard deviation of age: 14.516321150817316</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Standard deviation of age: 14.516321150817316
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="quantiles-and-iqr-numpy">
+<h2>Quantiles and IQR (Numpy)<a class="headerlink" href="#quantiles-and-iqr-numpy" title="Link to this heading">#</a></h2>
+<p>Quantiles are essentially just cuts at specific points in your data when it’s sorted in ascending order. The first quartile (Q1) is the point below which 25% of the data falls, while the third quartile (Q3) is the point below which 75% of the data falls. The second quartile or the median is the mid-point of the data when it’s sorted in ascending order.</p>
+<p>The Interquartile Range (IQR) shows where half of our data lies. It’s resistant to outliers. It exposes potential outliers, defined as values that either lie below Q1 - 1.5 * IQR or above Q3 + 1.5 * IQR. Multiplying the IQR by 1.5 roughly sets a boundary that encapsulates 99.3% of the data assuming a normal distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">76</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">82</span><span class="p">])</span>
+
+<span class="c1"># Calculate Q1 and Q3</span>
+<span class="n">Q1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Q1</span><span class="p">)</span>  <span class="c1"># Output: 69.25</span>
+<span class="n">Q3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Q3</span><span class="p">)</span>  <span class="c1"># Output: 86.0</span>
+
+<span class="c1"># Calculate median</span>
+<span class="n">median_w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">median_w1</span><span class="p">)</span>  <span class="c1"># Output: 79.0</span>
+<span class="c1"># Check if it is the same as median</span>
+<span class="n">median_w2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">median_w2</span><span class="p">)</span>  <span class="c1"># Output 79.0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>69.25
+86.0
+79.0
+79.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">math_scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+  <span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Jerome&#39;</span><span class="p">,</span> <span class="s1">&#39;Jessica&#39;</span><span class="p">,</span> <span class="s1">&#39;Jeff&#39;</span><span class="p">,</span> <span class="s1">&#39;Jennifer&#39;</span><span class="p">,</span> <span class="s1">&#39;Jackie&#39;</span><span class="p">,</span> <span class="s1">&#39;Jimmy&#39;</span><span class="p">,</span> <span class="s1">&#39;Joshua&#39;</span><span class="p">,</span> <span class="s1">&#39;Julia&#39;</span><span class="p">],</span>
+  <span class="s1">&#39;Score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">55</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># IQR for scores</span>
+<span class="n">Q1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">math_scores</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">],</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">Q3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">math_scores</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">],</span> <span class="mi">75</span><span class="p">)</span>
+<span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">IQR</span><span class="p">)</span>  <span class="c1"># Output: 8.75</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8.75
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># finding outliers using IQR (boolean selection)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">math_scores</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">]</span>  <span class="c1"># to simplify next expression</span>
+<span class="n">outliers_scores</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[(</span><span class="n">scores</span> <span class="o">&lt;</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">scores</span> <span class="o">&gt;</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">outliers_scores</span><span class="p">)</span>  <span class="c1"># Outputs 13 and 100</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1     13
+5    100
+Name: Score, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="quantiles-pandas">
+<h2>Quantiles (Pandas)<a class="headerlink" href="#quantiles-pandas" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="c1"># Load Titanic dataset</span>
+<span class="n">titanic_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;titanic&#39;</span><span class="p">)</span>
+
+<span class="c1"># Using Pandas</span>
+<span class="n">Q1_age_pd</span> <span class="o">=</span> <span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">Q3_age_pd</span> <span class="o">=</span> <span class="n">titanic_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">Q1_age_pd</span><span class="p">,</span> <span class="n">Q3_age_pd</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>20.125 38.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="accessing-distribution-functions-in-scipy">
+<h2>Accessing Distribution Functions in Scipy<a class="headerlink" href="#accessing-distribution-functions-in-scipy" title="Link to this heading">#</a></h2>
+<p>In statistics, distribution functions play a crucial role—they enable us to identify the probability of potential outcomes of a random event.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Simulating temperature data for a year in a city. we generate an array of 365 values, </span>
+<span class="c1"># which are normally distributed with mean=30 and std=10</span>
+<span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">365</span><span class="p">)</span>
+<span class="n">temp_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([31.63680685, 42.56541324, 18.53359321, 31.53877215, 35.74600428,
+       21.50840463, 26.36566008, 25.6293317 , 28.29127404, 25.3804333 ,
+       24.55341496, 14.08231724, 25.60949966, 15.48893531,  7.95338133,
+       35.71993742, 34.46410415, 32.04099745, 30.05475178, 35.71489293,
+       21.37919031, 31.94085321, 32.81813074, 29.49815631, 35.89141138,
+       27.92472868,  1.89530086, 37.13798135, 28.18495132, 24.33686629,
+       13.99452656, 29.70644218, 34.49240447, 33.3348448 , 48.03979176,
+       25.39633989, 19.70123731, 27.55093906, 31.07179769, 32.56982119,
+       20.97367698, 19.96868818, 29.31551063, 29.74954876, 39.13148799,
+       34.98652204, 35.65356995, 28.851704  , 34.51937504, 19.90522326,
+       45.89415597, 36.58340308, 41.49130205, 42.81865606, 43.52475174,
+       30.49665701, 33.75863072, 25.76500999, 41.42901769, 34.22827239,
+       45.40964869, 28.6238804 , 27.42673706, 34.72247067, 42.2444193 ,
+       26.40346754, 48.39556377, 22.97953226, 27.56443822, 31.76997107,
+       44.71797043, 29.51648472, 39.49934355, 33.61382284, 36.54315739,
+       17.17890484, 28.11749226, 29.46282546, 27.23636222, 35.74440884,
+       26.9942901 , 38.442879  , 30.12412129, 36.4664268 , 25.3344343 ,
+       22.55199249, 30.95263844, 21.05264642, 40.24327055, 36.50302423,
+       29.11271477, 19.58470007, 36.56291418, 46.25688221, 20.26599534,
+       19.42119582, 26.7514666 , 36.73919778, 23.22756205, 11.4299037 ,
+       30.30180086, 17.59113321, 19.34605876, 24.09061544, 39.71639305,
+       27.56645827, 34.35790975, 36.62447918, 13.77281483, 30.67067751,
+       34.42412821, 37.79884674, 27.38820012, 13.8480152 , 10.09007975,
+       24.17127156, 13.25698031, 35.09951446, 48.11351963, 36.85950387,
+       32.56389083, 18.63456857, 41.1881375 , 44.04006416, 30.53072196,
+       48.09339655, 22.81300394, 27.61741377, 17.40657064, 54.88679281,
+       25.7399914 , 28.02690645, 30.15369893, 42.53524469, 33.62180083,
+       40.22586237, 46.07613597, 31.27595796, 36.15229379, 19.09351852,
+       30.97139637, 35.65397673, 37.22593274, 33.20412596, 33.38431155,
+       40.59289964, 41.71347258, 26.70464593, 30.57786471, 30.32193589,
+       25.42734161, 27.15352108, 26.90600087, 19.6437395 , 18.69888261,
+       26.2065122 , 20.75898861, 24.45102073, 17.63060366, 43.98228959,
+       28.70665803, 29.52205146, 37.39654951, 29.057712  , 31.6142353 ,
+       25.16741287, 29.59744003, 23.26823713, 33.73637924, 41.78463679,
+       26.02969536, 25.06105366, 32.58749804, 21.10846623, 31.4584684 ,
+       26.12477177, 36.07113504, 18.44051877, 22.64989815, 20.77056334,
+       41.96987812, 31.67176874, 27.22512595, 20.67529655, 28.60775076,
+       41.71485928, 39.75025756, 27.21005873, 26.02815624, 19.86535366,
+       14.26874159, 11.68199063, 45.78199502, 21.57373748, 21.62321945,
+       27.56126502, 44.59794228, 36.11080671, 24.51667138, 35.72667536,
+       20.96838378,  5.77745838, 35.32498312, 22.35561923, 19.37103962,
+       32.13098031, 37.49007749, 18.99887908, 25.6427752 , 27.54251606,
+       24.00840897, 30.3330953 , 24.45797708, 48.26211547, 26.12192959,
+       41.51059562, 31.09565025, 52.8846069 , 19.92985365, 42.70853739,
+       39.09828067, 14.01077201, 17.08874326, 26.44794989, 30.05641085,
+       28.26948292, 27.97884758, 27.14338439, 30.31767042, 30.36692531,
+       21.55793547, 34.7241411 , 52.48096889, 26.51047642, 19.73969564,
+       24.03670454,  7.13563375, 17.76324502, 26.8256127 , 28.32991133,
+       38.35299904, 13.34054101, 46.97555669, 30.06128753, 14.91050417,
+       26.54794698, 25.77756669, 16.36605493, 36.58444475, 24.77324484,
+       25.00283238, 21.17001805, 37.79598243, 37.73301086, 26.35724545,
+       26.66111333, 22.09690459, 35.30878831, 43.11897243, 18.92350169,
+       29.006167  , 38.9297742 , 28.53860325, 40.73434928, 20.93552302,
+       17.33888856, 22.63540777, 27.76728705, 39.80232334, 13.9761469 ,
+       38.42214883, 20.0998954 , 31.51430266, 27.94245537, 40.4406046 ,
+       29.67479304, 17.60213205, 28.93502973, 31.19997301, 51.72368238,
+       32.90465508, 16.31060335, 44.77911909, 23.78814717, 19.17037994,
+       26.68746127,  7.32487956, 17.21327078, 11.31284246, 33.19997071,
+       43.33665617, 32.67789074, 24.53884932, 22.78884026, 24.64730776,
+       26.75439674, 22.98193857, 34.79358158, 29.58267259, 39.38807131,
+       23.1705343 , 28.5119372 , 40.18863108, 18.54223047, 31.5295522 ,
+       32.13623556, 29.44364715, 29.44324042, 25.49598194, 35.65977234,
+       23.02052005, 35.78914447, 43.40193507, 27.74416846, 29.94693056,
+       40.79616477, 31.08686265, 33.97651482, 17.35793254, 49.37668103,
+       26.16819291, 36.34867373, 32.22585925, 36.19452234, 20.21665245,
+       20.83013055, 40.46568482, 16.69571773, 20.16761667, 19.6382787 ,
+       27.48381001, 23.44762105, 28.48266617, 36.95525735, 42.77693153,
+       33.47261095, 28.4730023 , 37.00732568, 31.11686238, 18.84832657,
+       33.18114774, 19.44279729, 18.1217836 , 25.92399677, 23.35780023,
+       39.72247698, 16.12255691, 14.0368791 , 40.01523451, 19.7985841 ,
+       39.36761673, 30.58177706, 30.58399033, 15.14861258, 18.98041592,
+       32.63218735, 23.61876154, 46.66412896, 17.60263657, 33.32456562,
+       37.9606709 , 31.1655981 , 41.76871545, 39.52730176, 15.18579829])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="skewness-vs-kurtosis">
+<h2>Skewness vs Kurtosis<a class="headerlink" href="#skewness-vs-kurtosis" title="Link to this heading">#</a></h2>
+<p>Below we’ll compute two important statistical measures: skewness, which measures the symmetry of the data around the mean, and kurtosis, which assesses the probability of outliers when compared with normal distribution. Skewness and kurtosis are both statistical measures that describe the shape of a probability distribution, but they focus on different aspects. Skewness indicates the asymmetry of the distribution, while kurtosis indicates the “tailedness” or how outlier-prone the distribution is.</p>
+<section id="skewness">
+<h3>Skewness<a class="headerlink" href="#skewness" title="Link to this heading">#</a></h3>
+<p>A negative skewness (blue curve) indicates the left tail is longer or fatter than the right - showing more lower valued data. In contrast, a positive skewness (red curve) indicates a distribution where the right tail is longer or fatter - representing more higher valued data. Skewness helps identify the shape and direction of spread of our data.</p>
+<img alt="Skewness" src="_images/skewness.png" />
+</section>
+<section id="kurtosis">
+<h3>Kurtosis<a class="headerlink" href="#kurtosis" title="Link to this heading">#</a></h3>
+<p>gives us insight into the shape of a distribution’s tail and peak. Underneath the blue curve is a normal distribution with a kurtosis of 0, showcasing a relatively balanced distribution with no extreme values. The red curve, with a higher kurtosis (Laplace distribution), has a more pronounced or ‘pointy’ peak with heavier tails, indicating more extreme values in the dataset.
+<img alt="Kurtosis" src="_images/kurtosis.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Compute skewness - a measure of data asymmetry</span>
+<span class="n">data_skewness</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Compute kurtosis - a measure of data &quot;tailedness&quot; or outliers</span>
+<span class="n">data_kurtosis</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Skewness: </span><span class="si">{</span><span class="n">data_skewness</span><span class="si">}</span><span class="se">\n</span><span class="s2">Kurtosis: </span><span class="si">{</span><span class="n">data_kurtosis</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Skewness: -0.025782454316013746
+Kurtosis: -0.19532679249164842
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="uniform-and-normal-distribution">
+<h2>Uniform and Normal Distribution<a class="headerlink" href="#uniform-and-normal-distribution" title="Link to this heading">#</a></h2>
+<p>Consider a scenario in which all outcomes have an equal chance of occurring. This phenomenon is described by a Uniform Distribution. For instance, if we draw a card suit from a deck, the probabilities of drawing a heart, club, diamond, or spade are equal.</p>
+<p>A Normal Distribution is a statistical function that describes a symmetrical, bell-shaped curve, prevalent in statistical analysis. A key characteristic of the Normal Distribution is that it is entirely defined by its mean (average) and standard deviation (spread).</p>
+<p>We can calculate metrics like mean (average), variance (spread), skewness (asymmetry), and kurtosis (peak of the curve) to better understand our distributions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Generate random numbers uniformly distributed between -1 and 1</span>
+<span class="n">uniform_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Plot a Histogram of the distribution</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">uniform_data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Uniform Distribution&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d5e17f2071b1dbbc73313db72dbe28c66fedac79975a17e69ce19a092c1eb1a7.png" src="_images/d5e17f2071b1dbbc73313db72dbe28c66fedac79975a17e69ce19a092c1eb1a7.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate Normal Distribution data</span>
+<span class="n">normal_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Plot a Histogram of the distribution</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">normal_data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Normal Distribution&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7932a32899658892e416785346451ece77a1aef41f48cd445f7fc5cd67678aa9.png" src="_images/7932a32899658892e416785346451ece77a1aef41f48cd445f7fc5cd67678aa9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">kurtosis</span><span class="p">,</span> <span class="n">skew</span>
+
+<span class="c1"># Calculate properties</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">normal_data</span><span class="p">)</span> <span class="c1"># Mean</span>
+<span class="n">var</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">normal_data</span><span class="p">)</span> <span class="c1"># Variance</span>
+<span class="n">skew</span> <span class="o">=</span> <span class="n">skew</span><span class="p">(</span><span class="n">normal_data</span><span class="p">)</span> <span class="c1"># Skewness</span>
+<span class="n">kurt</span> <span class="o">=</span> <span class="n">kurtosis</span><span class="p">(</span><span class="n">normal_data</span><span class="p">)</span> <span class="c1"># Kurtosis</span>
+
+<span class="c1"># Print the results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean: &quot;</span><span class="p">,</span> <span class="n">mean</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variance: &quot;</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Skew : &quot;</span><span class="p">,</span> <span class="n">skew</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Kurtosis: &quot;</span><span class="p">,</span> <span class="n">kurt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean:  -0.018600592304002718
+Variance:  1.0377961954215327
+Skew :  -0.0010013333881989585
+Kurtosis:  -0.12433579681911322
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="random-quote">
+<h1>Random Quote<a class="headerlink" href="#random-quote" title="Link to this heading">#</a></h1>
+<p>“The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart.” (Helen Keller)</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to your journey in the world of Data Science</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Chapter%202-%20Data%20Cleaning%20and%20Preprocessing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 2- Data Cleaning and Preprocessing</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chapter 1- Descriptive Statistics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arrays-properties-size-shape-type">Arrays Properties: size, shape, type</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data">Selecting data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-functions-to-numpy-arrays">Applying Functions to NumPy Arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-operations-in-numpy">Matrix Operations in Numpy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-inverse">Matrix Inverse</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-transpose">Matrix Transpose</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-2-matrices-horizontally-using-hstack">Combine 2 Matrices horizontally using hstack()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-normalization">Matrix Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dot-product-of-2-matrices">Dot Product of 2 Matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#intro-to-pandas">Intro to Pandas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-dataframe">Creating a Dataframe</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-parts">DataFrame Parts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-data-types">DataFrame Data Types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-characteristics-head-tail-shape-info-describe">DataFrame Characteristics (head, tail, shape, info, describe)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-rows">Adding rows</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-rows">Removing Rows</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-and-modifying-the-index-column">Setting and Modifying the Index Column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#locating-data">Locating Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loc-for-row-or-col-selection">loc[] for row or col selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iloc-for-row-or-col-selection">iloc[] for row or col selection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-lambda-fn-for-df-manipulation">Using Lambda fn for df Manipulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-filtering">Data Filtering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sorting">Data Sorting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-datetime-functions">Pandas Datetime Functions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptive-and-inferential-statistics">Descriptive and Inferential Statistics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-distribution-of-categorical-data">Understanding Distribution of Categorical Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#centrality-measures-mean-median-mode-in-numpy">Centrality Measures (Mean, Median, Mode) in Numpy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-ties-in-mode">Handling ties in mode</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#centrality-measures-mean-median-mode-in-pandas">Centrality Measures (Mean, Median, Mode) in Pandas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dispersion-measures-range-var-std-dev">Dispersion Measures (Range, Var, Std Dev)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-deviation-in-pandas-via-np-std">Standard Deviation in Pandas via np.std()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantiles-and-iqr-numpy">Quantiles and IQR (Numpy)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantiles-pandas">Quantiles (Pandas)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-distribution-functions-in-scipy">Accessing Distribution Functions in Scipy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#skewness-vs-kurtosis">Skewness vs Kurtosis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skewness">Skewness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kurtosis">Kurtosis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uniform-and-normal-distribution">Uniform and Normal Distribution</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#random-quote">Random Quote</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Amna Gul
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

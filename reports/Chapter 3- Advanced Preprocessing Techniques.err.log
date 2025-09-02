@@ -1,0 +1,73 @@
+Traceback (most recent call last):
+  File "/Users/amnagul/.pyenv/versions/3.13.5/envs/jupybook_env/lib/python3.13/site-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/amnagul/.pyenv/versions/3.13.5/envs/jupybook_env/lib/python3.13/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+    ~~~~~~~~~^
+        nb,
+        ^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/Users/amnagul/.pyenv/versions/3.13.5/envs/jupybook_env/lib/python3.13/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/amnagul/.pyenv/versions/3.13.5/envs/jupybook_env/lib/python3.13/site-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/amnagul/.pyenv/versions/3.13.5/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/amnagul/.pyenv/versions/3.13.5/envs/jupybook_env/lib/python3.13/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+        cell, index, execution_count=self.code_cells_executed + 1
+    )
+  File "/Users/amnagul/.pyenv/versions/3.13.5/envs/jupybook_env/lib/python3.13/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/amnagul/.pyenv/versions/3.13.5/envs/jupybook_env/lib/python3.13/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+print(grouped['Age'].mean())
+
+for name, group in grouped:
+    print("\nCity:", name)
+    print("Number of people:", len(group))
+    print("Average age:", group["Age"].mean())
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mKeyError[39m                                  Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[12][39m[32m, line 1[39m
+[32m----> [39m[32m1[39m [38;5;28mprint[39m([43mgrouped[49m[43m[[49m[33;43m'[39;49m[33;43mAge[39;49m[33;43m'[39;49m[43m][49m.mean())
+[32m      3[39m [38;5;28;01mfor[39;00m name, group [38;5;129;01min[39;00m grouped:
+[32m      4[39m     [38;5;28mprint[39m([33m"[39m[38;5;130;01m\n[39;00m[33mCity:[39m[33m"[39m, name)
+
+[36mFile [39m[32m~/.pyenv/versions/3.13.5/envs/jupybook_env/lib/python3.13/site-packages/pandas/core/groupby/generic.py:1951[39m, in [36mDataFrameGroupBy.__getitem__[39m[34m(self, key)[39m
+[32m   1944[39m [38;5;28;01mif[39;00m [38;5;28misinstance[39m(key, [38;5;28mtuple[39m) [38;5;129;01mand[39;00m [38;5;28mlen[39m(key) > [32m1[39m:
+[32m   1945[39m     [38;5;66;03m# if len == 1, then it becomes a SeriesGroupBy and this is actually[39;00m
+[32m   1946[39m     [38;5;66;03m# valid syntax, so don't raise[39;00m
+[32m   1947[39m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m(
+[32m   1948[39m         [33m"[39m[33mCannot subset columns with a tuple with more than one element. [39m[33m"[39m
+[32m   1949[39m         [33m"[39m[33mUse a list instead.[39m[33m"[39m
+[32m   1950[39m     )
+[32m-> [39m[32m1951[39m [38;5;28;01mreturn[39;00m [38;5;28;43msuper[39;49m[43m([49m[43m)[49m[43m.[49m[34;43m__getitem__[39;49m[43m([49m[43mkey[49m[43m)[49m
+
+[36mFile [39m[32m~/.pyenv/versions/3.13.5/envs/jupybook_env/lib/python3.13/site-packages/pandas/core/base.py:245[39m, in [36mSelectionMixin.__getitem__[39m[34m(self, key)[39m
+[32m    243[39m [38;5;28;01melse[39;00m:
+[32m    244[39m     [38;5;28;01mif[39;00m key [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m [38;5;28mself[39m.obj:
+[32m--> [39m[32m245[39m         [38;5;28;01mraise[39;00m [38;5;167;01mKeyError[39;00m([33mf[39m[33m"[39m[33mColumn not found: [39m[38;5;132;01m{[39;00mkey[38;5;132;01m}[39;00m[33m"[39m)
+[32m    246[39m     ndim = [38;5;28mself[39m.obj[key].ndim
+[32m    247[39m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m._gotitem(key, ndim=ndim)
+
+[31mKeyError[39m: 'Column not found: Age'
+
